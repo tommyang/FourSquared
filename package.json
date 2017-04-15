@@ -5,5 +5,9 @@
   "main": "index.js",
   "repository": "git@github.com:henyu6/FourSquared.git",
   "author": "FourSquared",
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0"
+  }
 }
