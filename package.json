@@ -8,9 +8,12 @@
   "license": "UNLICENSED",
   "devDependencies": {
     "chai": "^3.5.0",
-    "mocha": "^3.2.0"
+    "codeclimate-test-reporter": "^0.4.1",
+    "mocha": "^3.2.0",
+    "nyc": "^10.2.0"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "nyc mocha",
+    "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecovcodeclimate-test-reporter < coverage.lcov"
   }
 }
