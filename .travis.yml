@@ -15,9 +15,9 @@ addons:
 after_success:
   - yarn global add codeclimate-test-reporter
   - yarn run coverage
-deploy:
-  provider: gae
-  project: foobaz-164623
-  keyfile: gce.json
-  verbosity: debug
-  on: master
+#deploy:
+#  provider: gae
+#  project: foobaz-164623
+#  keyfile: gce.json
+#  verbosity: debug
+#  on: master
