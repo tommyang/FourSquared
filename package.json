@@ -13,6 +13,7 @@
     "nyc": "^10.2.0"
   },
   "scripts": {
+    "start": "node app.js",
     "test": "nyc mocha",
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codeclimate-test-reporter < coverage.lcov && rm coverage.lcov"
   }
