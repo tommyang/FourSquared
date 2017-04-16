@@ -1,23 +1,37 @@
 {
-  "name": "FourSquared",
+  "name": "Foursquared",
   "version": "1.0.0",
   "description": "CSE 112 Team FourSquared",
   "main": "app.js",
   "repository": "git@github.com:tommyang/FourSquared.git",
-  "author": "FourSquared",
+  "author": "Foursquared",
   "private": true,
   "license": "UNLICENSED",
   "engines": {
     "node": ">=7.9.0"
   },
+  "dependencies": {
+    "body-parser": "~1.17.1",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.3",
+    "ejs": "~2.5.6",
+    "express": "~4.15.2",
+    "morgan": "~1.8.1",
+    "serve-favicon": "~2.4.2"
+  },
   "devDependencies": {
     "chai": "^3.5.0",
     "codeclimate-test-reporter": "^0.4.1",
+    "gulp": "^3.9.1",
+    "gulp-apidoc": "^0.2.6",
+    "gulp-jshint": "^2.0.4",
+    "gulp-mocha": "^4.3.0",
+    "jshint": "^2.9.4",
     "mocha": "^3.2.0",
     "nyc": "^10.2.0"
   },
   "scripts": {
-    "start": "node app.js",
+    "start": "node ./bin/www",
     "test": "nyc mocha",
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codeclimate-test-reporter < coverage.lcov && rm coverage.lcov"
   }
