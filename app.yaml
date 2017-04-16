@@ -1,2 +1,4 @@
--runtime: nodejs
--env: flex
+untime: nodejs
+env: flex
+skip_files:
+  - ^test$
