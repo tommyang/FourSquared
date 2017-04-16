@@ -25,14 +25,13 @@
     "gulp": "^3.9.1",
     "gulp-apidoc": "^0.2.6",
     "gulp-jshint": "^2.0.4",
-    "gulp-mocha": "^4.3.0",
     "jshint": "^2.9.4",
     "mocha": "^3.2.0",
     "nyc": "^10.2.0"
   },
   "scripts": {
     "start": "node ./bin/www",
-    "test": "nyc mocha",
+    "test": "gulp && nyc mocha",
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codeclimate-test-reporter < coverage.lcov && rm coverage.lcov"
   }
 }
