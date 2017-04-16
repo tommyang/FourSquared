@@ -13,11 +13,14 @@ addons:
   code_climate:
     repo_token: de89840429cefee977923a6736d82cf1366e8fcdde6ad4a4535bd9ba3bd112ad
 after_success:
-  - yarn global add codeclimate-test-reporter
-  - yarn run coverage
-#deploy:
-#  provider: gae
-#  project: foobaz-164623
-#  keyfile: gce.json
-#  verbosity: debug
-#  on: master
+- yarn global add codeclimate-test-reporter
+- yarn run coverage
+deploy:
+  provider: gae
+  project: foobaz-164623
+  keyfile: gae_keyfile.json
+  verbosity: debug
+  on: master
+before_install:
+- openssl aes-256-cbc -K $encrypted_ab9a73cf9d98_key -iv $encrypted_ab9a73cf9d98_iv
+  -in gae_keyfile.json.enc -out gae_keyfile.json -d
