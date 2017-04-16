@@ -1,3 +1,5 @@
+'use strict';
+
 // Load the http module to create an http server.
 const http = require('http');
 
@@ -7,5 +9,8 @@ const server = http.createServer(function (request, response) {
   response.end("Hello World\n");
 });
 
-// Listen on port 8000, IP defaults to 127.0.0.1
-server.listen(8000);
+const PORT = process.env.PORT || 8080;
+server.listen(PORT);
+
+console.log(`App listening on port ${PORT}`);
+console.log('Press Ctrl+C to quit.');

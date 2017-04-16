@@ -2,9 +2,10 @@
   "name": "FourSquared",
   "version": "1.0.0",
   "description": "CSE 112 Team FourSquared",
-  "main": "index.js",
+  "main": "app.js",
   "repository": "git@github.com:tommyang/FourSquared.git",
   "author": "FourSquared",
+  "private": true,
   "license": "UNLICENSED",
   "engines": {
     "node": ">=7.9.0"
