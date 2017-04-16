@@ -3,9 +3,12 @@
   "version": "1.0.0",
   "description": "CSE 112 Team FourSquared",
   "main": "index.js",
-  "repository": "git@github.com:henyu6/FourSquared.git",
+  "repository": "git@github.com:tommyang/FourSquared.git",
   "author": "FourSquared",
   "license": "UNLICENSED",
+  "engines": {
+    "node": ">=7.9.0"
+  },
   "devDependencies": {
     "chai": "^3.5.0",
     "codeclimate-test-reporter": "^0.4.1",
