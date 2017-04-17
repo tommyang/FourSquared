@@ -7,10 +7,11 @@
 - Install [Node.js](https://nodejs.org/en/download/package-manager/) and [Yarn](https://yarnpkg.com/en/docs/install). 
   - Note the step to put this line in your shell profile `export PATH="$PATH:$(yarn global bin)"`. 
 - Clone this repo
-  - If you previously cloned this repo when it was under Henry's account, `git remote set-url origin git@github.com:tommyang/FourSquared.git`
+  - If you previously cloned this repo when it was under Henry's account, run `git remote set-url origin git@github.com:tommyang/FourSquared.git` if you use SSH or `git remote set-url origin https://github.com/tommyang/FourSquared.git` if you use HTTPS. 
 - Install dependencies `$ yarn install`
 - Install Gulp CLI: `$ yarn global add gulp-cli`. 
 - Write tests in `/test`, preferrably with the naming convention `test-xxx.js`. See `test-foo.js` for an example. 
 - Write code. See `foo.js` for an example. 
-- Commit and push. Travis CI will lint the code using Gulp and plugins and run the test using Mocha. Test coverage information is tracked by Code Climate. 
+- Commit and push. Travis CI will lint the code using Gulp and plugins and run the test using Mocha. Test coverage information is tracked by Code Climate. If tests return successfully, Travis will deploy this version to Heroku automatically. 
+  - If you are pushing commits with just "cosmetic changes" (such as updating this README file), include `[ci skip]` in the commit message to skip Travis CI. 
 - Check `#commits` Slack channel for Travis CI status report. 
