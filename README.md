@@ -7,6 +7,7 @@
 - Install [Node.js](https://nodejs.org/en/download/package-manager/) and [Yarn](https://yarnpkg.com/en/docs/install). 
   - Note the step to put this line in your shell profile `export PATH="$PATH:$(yarn global bin)"`. 
 - Clone this repo
+  - If you previously cloned this repo when it was under Henry's account, `git remote set-url origin git@github.com:tommyang/FourSquared.git`
 - Install dependencies `$ yarn install`
 - Install Gulp CLI: `$ yarn global add gulp-cli`. 
 - Write tests in `/test`, preferrably with the naming convention `test-xxx.js`. See `test-foo.js` for an example. 
