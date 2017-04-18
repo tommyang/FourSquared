@@ -18,4 +18,4 @@ git pull
 yarn install --production
 
 # Restart app
-pm2 gracefulReload RESTART_ARGS
+pm2 gracefulReload $RESTART_ARGS

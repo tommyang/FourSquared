@@ -26,3 +26,4 @@ fi
 
 echo "---- Running deployment script on remote server ----"
 run ssh $KEYARG $SERVER bash $REMOTE_SCRIPT_PATH
+run rm $KEYFILE
