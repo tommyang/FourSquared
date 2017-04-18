@@ -17,14 +17,7 @@ addons:
 after_success:
   - yarn global add codeclimate-test-reporter
   - yarn run coverage
-# deploy:
-#   provider: heroku
-#   api_key:
-#     secure: XOGHPLIHszAfmftd9EfBSsTWxCizye2/CpPeFv/FZqrVgpTd9El6y4LFaGjUIktpln3a4YwEFSolDuRMMm8L6RljqjcUbdblp10BY+yXqHQ48KDZBvPaoduEa5QUd3Nhcwv+T03m3yNwlDezU62zhpQ6ZEKwBMnHXfKq4Dx21cnXI4QCGizM8Y1/67yEffZgEzI9gzQjip03AZcoYumU24rD+MnYJPS4Rj3uInN3LAer8Hkho7N+qFQ8Mk4lDTAyANC8yZOjYelFSbXhEe9XkEudpl1kg6FxCUPR+dazQa5LY39TFdxrNsXgNp8CR3HGRoMgUnob2dDl8xxjo/l4LlV1zybj3EyPPtVVzCtHRWUer6geyPBRBFOKq+cojixHl5xt3qa4YyVEnPzszirgBP0FBHsmhSDlgGCZVb65DKpoGsT/5yeCwIIh8sSOX4iPYNqjtGpPijGOK/OpNq89CD60i61w3AYTGSRK+dEI9EV5Ku1XUtJ9BoNr0DPQQUG46UY6JdEUKAQPeZiYJgESpF/Lh8hNoFvQ8BgQvysfM6f4kwr5YuEdixXi/jGuF45hmvuqIhnZg7IeFm2hkqoCGKf7xUQvvu0VRu/i5CVIAimIfo9Q8Z36A1BBrmujNJIA88+ji892c+gKy53e+xNSNyOyDQXmg5e9ycWqKzKTFD8=
-#   app: foursquared
-#   on:
-#     repo: tommyang/FourSquared
 deploy:
   provider: gae 
-  keyfile: foobaz.json
+  keyfile: servicekey.json
   project: foobaz-164623
