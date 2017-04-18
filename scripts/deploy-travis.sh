@@ -5,7 +5,7 @@ set -e
 
 SERVER=foursquared@35.185.221.32
 APP_DIR=/home/foursquared/FourSquared
-KEYFILE=deploy_id_rsa
+KEYFILE=scripts/deploy_id_rsa
 REMOTE_SCRIPT_PATH=/home/foursquared/FourSquared/server.sh
 
 ### Library ###
