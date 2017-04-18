@@ -21,4 +21,5 @@ deploy:
   provider: gae 
   keyfile: servicekey.json
   project: foobaz-164623
+  version: 20170418t044007
   on: gae
