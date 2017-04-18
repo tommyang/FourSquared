@@ -24,10 +24,7 @@ after_success:
 #   app: foursquared
 #   on:
 #     repo: tommyang/FourSquared
-before_deploy:
-  openssl aes-256-cbc -K $encrypted_ab9a73cf9d98_key -iv $encrypted_ab9a73cf9d98_iv -in scripts/deploy_id_rsa.enc -out scripts/deploy_id_rsa -d
 deploy:
-  provider: script
-  script: bash scripts/deploy-travis.sh
-  on:
-    branch: master
+  provider: gae 
+  keyfile: foobaz.json
+  project: foobaz-164623
