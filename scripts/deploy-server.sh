@@ -11,7 +11,7 @@ RESTART_ARGS=foursquared
 set -x
 
 # Pull latest code
-cd $APP_DIR/code
+cd $APP_DIR
 git pull
 
 # Install dependencies
