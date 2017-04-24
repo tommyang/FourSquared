@@ -1,15 +1,17 @@
 function generateListElement(error) {
-  var template = $("#errorListItem").html();
-  var errorMsg = template.replace("error", error);
-  return errorMsg;
+    var template = $("#errorListItem").html();
+    var errorMsg = template.replace("error", error);
+
+    return errorMsg;
 }
 
-function isValidPassword() {
-    var password = $("#password").val();
-    var passwordScheme = setPasswordScheme();
+function PasswordScheme() {}
 
+function isValidPassword(password) {
+    var passwordScheme = PasswordScheme.scheme;
     var errors = '';
     var errorMsg = '';
+
     if ("length" in passwordScheme) {
         if (password.length < passwordScheme["length"]) {
             errorMsg = "Password length is not greater than ";
@@ -46,12 +48,12 @@ function isValidPassword() {
             errors = errors + generateListElement(errorMsg);
         }
     }
+
     if (errors == '') {
         document.getElementById('errors').innerHTML="";
         document.getElementById("errors").innerHTML=$("#successMsg").html();
         return true;
-    }
-    else {
+    } else {
         document.getElementById("errors").innerHTML="";
         var errorList = $("#errorList").html();
         errorList = errorList.replace("item", errors);
@@ -60,13 +62,15 @@ function isValidPassword() {
     }
 }
 
-function setPasswordScheme() {
+function setPasswordScheme(passwordScheme) {  
+    PasswordScheme.scheme = passwordScheme;
+}
+
+function getSchemeFromCheckboxes() {
     var checkedBoxes = {};
 
     if ($("#lengthBox").is(":checked")) {
         checkedBoxes["length"] = Number($("#lengthval").val());
-        if(checkedBoxes["length"] < 6) 
-          checkedBoxes["length"] = 6;
     }
 
     if ($("#lowercaseBox").is(":checked")) {
@@ -90,5 +94,6 @@ function setPasswordScheme() {
 
 
 $("#validate").click(function() {
-  isValidPassword(); // do something visual with this?!
+    setPasswordScheme(getSchemeFromCheckboxes());
+    isValidPassword($("#password").val());
 });
