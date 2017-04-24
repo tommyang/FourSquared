@@ -41,9 +41,11 @@ function isValidPassword() {
     
     if(errors === '<ul class="list-group">') {
         document.getElementById('errors').innerHTML="";
+        document.getElementById("errors").innerHTML='<ul class="list-group"><li class="list-group-item" style="background:#99ff99; border:none"> Success</li></ul>';
         return true;
     }
     else {
+        document.getElementById("errors").innerHTML="";
         document.getElementById("errors").innerHTML=errors + '</ul>';
         return false;
     }
