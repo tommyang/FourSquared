@@ -88,3 +88,7 @@ function setPasswordScheme() {
     return checkedBoxes;
 }
 
+
+$("#validate").click(function() {
+  isValidPassword(); // do something visual with this?!
+});
