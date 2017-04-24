@@ -1,38 +1,52 @@
+function generateListElement(error) {
+  var errorMsg = '<li class="list-group-item" style="background:#ff9999; border:none">' + error + '</li>';
+  return errorMsg;
+}
+
 function isValidPassword() {
     var password = $("#password").val();
     var passwordScheme = setPasswordScheme();
 
+    var errors = '<ul class="list-group">';
+
     if ("length" in passwordScheme) {
         if (password.length < passwordScheme["length"]) {
-            return false; 
+            errors = errors + generateListElement("Password is not greater than "+ passwordScheme["length"] + ".");
         }
     }
 
     if ("lowercase" in passwordScheme) {
         if (password.toUpperCase() === password) {
-            return false;
+            errors = errors + generateListElement("Password does not contain a lowercase.");
         }
     }
 
     if ("uppercase" in passwordScheme) {
         if (password.toLowerCase() === password) {
-            return false;
+            errors = errors + generateListElement("Password does not contain a uppercase.");
         }
     }
 
     if ("number" in passwordScheme) {
         if (!/\d/.test(password)) {
-            return false;
+            errors = errors + generateListElement("Password does not contain a number.");
         }
     }
 
     if ("special" in passwordScheme) {
         if (!/[!@#$%?]/.test(password)) {
-            return false;
+            errors = errors + generateListElement("Password does not contain a special character.");
         }
     }
-
-    return true;
+    
+    if(errors === '<ul class="list-group">') {
+        document.getElementById('errors').innerHTML="";
+        return true;
+    }
+    else {
+        document.getElementById("errors").innerHTML=errors + '</ul>';
+        return false;
+    }
 }
 
 function setPasswordScheme() {
