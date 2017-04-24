@@ -1,5 +1,6 @@
 function generateListElement(error) {
-  var errorMsg = '<li class="list-group-item" style="background:#ff9999; border:none">' + error + '</li>';
+  var template = $("#errorListItem").html();
+  var errorMsg = template.replace("error", error);
   return errorMsg;
 }
 
@@ -7,46 +8,54 @@ function isValidPassword() {
     var password = $("#password").val();
     var passwordScheme = setPasswordScheme();
 
-    var errors = '<ul class="list-group">';
-
+    var errors = '';
+    var errorMsg = '';
     if ("length" in passwordScheme) {
         if (password.length < passwordScheme["length"]) {
-            errors = errors + generateListElement("Password length is not greater than "+ passwordScheme["length"] + ".");
+            errorMsg = "Password length is not greater than ";
+            errorMsg = errorMsg + passwordScheme["length"] + ".";
+
+            errors = errors + generateListElement(errorMsg);
         }
     }
 
     if ("lowercase" in passwordScheme) {
         if (password.toUpperCase() === password) {
-            errors = errors + generateListElement("Password does not contain a lowercase letter.");
+            errorMsg = "Password does not contain a lowercase letter.";
+            errors = errors + generateListElement(errorMsg);
         }
     }
 
     if ("uppercase" in passwordScheme) {
         if (password.toLowerCase() === password) {
-            errors = errors + generateListElement("Password does not contain an uppercase letter.");
+            errorMsg = "Password does not contain an uppercase letter.";
+            errors = errors + generateListElement(errorMsg);
         }
     }
 
     if ("number" in passwordScheme) {
         if (!/\d/.test(password)) {
-            errors = errors + generateListElement("Password does not contain a number.");
+            errorMsg = "Password does not contain a number.";
+            errors = errors + generateListElement(errorMsg);
         }
     }
 
     if ("special" in passwordScheme) {
         if (!/[!@#$%?]/.test(password)) {
-            errors = errors + generateListElement("Password does not contain a special character.");
+            errorMsg = "Password does not contain a special character";
+            errors = errors + generateListElement(errorMsg);
         }
     }
-    
-    if (errors === '<ul class="list-group">') {
+    if (errors == '') {
         document.getElementById('errors').innerHTML="";
-        document.getElementById("errors").innerHTML='<ul class="list-group"><li class="list-group-item" style="background:#99ff99; border:none"> Valid Password!</li></ul>';
+        document.getElementById("errors").innerHTML=$("#successMsg").html();
         return true;
     }
     else {
         document.getElementById("errors").innerHTML="";
-        document.getElementById("errors").innerHTML=errors + '</ul>';
+        var errorList = $("#errorList").html();
+        errorList = errorList.replace("item", errors);
+        document.getElementById("errors").innerHTML=errorList;
         return false;
     }
 }
