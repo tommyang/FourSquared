@@ -11,19 +11,19 @@ function isValidPassword() {
 
     if ("length" in passwordScheme) {
         if (password.length < passwordScheme["length"]) {
-            errors = errors + generateListElement("Password is not greater than "+ passwordScheme["length"] + ".");
+            errors = errors + generateListElement("Password length is not greater than "+ passwordScheme["length"] + ".");
         }
     }
 
     if ("lowercase" in passwordScheme) {
         if (password.toUpperCase() === password) {
-            errors = errors + generateListElement("Password does not contain a lowercase.");
+            errors = errors + generateListElement("Password does not contain a lowercase letter.");
         }
     }
 
     if ("uppercase" in passwordScheme) {
         if (password.toLowerCase() === password) {
-            errors = errors + generateListElement("Password does not contain a uppercase.");
+            errors = errors + generateListElement("Password does not contain an uppercase letter.");
         }
     }
 
@@ -39,9 +39,9 @@ function isValidPassword() {
         }
     }
     
-    if(errors === '<ul class="list-group">') {
+    if (errors === '<ul class="list-group">') {
         document.getElementById('errors').innerHTML="";
-        document.getElementById("errors").innerHTML='<ul class="list-group"><li class="list-group-item" style="background:#99ff99; border:none"> Success</li></ul>';
+        document.getElementById("errors").innerHTML='<ul class="list-group"><li class="list-group-item" style="background:#99ff99; border:none"> Valid Password!</li></ul>';
         return true;
     }
     else {
