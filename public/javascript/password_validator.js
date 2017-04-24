@@ -56,6 +56,8 @@ function setPasswordScheme() {
 
     if ($("#lengthBox").is(":checked")) {
         checkedBoxes["length"] = Number($("#lengthval").val());
+        if(checkedBoxes["length"] < 6) 
+          checkedBoxes["length"] = 6;
     }
 
     if ($("#lowercaseBox").is(":checked")) {
