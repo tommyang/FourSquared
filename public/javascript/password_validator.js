@@ -7,49 +7,38 @@ function generateListElement(error) {
 
 function PasswordScheme() {}
 
-function isValidPassword(password) {
+function generateErrorMsg(error) {
     var passwordScheme = PasswordScheme.scheme;
-    var errors = '';
     var errorMsg = '';
+    var errors = '';
 
-    if ("length" in passwordScheme) {
-        if (password.length < passwordScheme["length"]) {
-            errorMsg = "Password length is not greater than ";
-            errorMsg = errorMsg + passwordScheme["length"] + ".";
-
-            errors = errors + generateListElement(errorMsg);
-        }
+    if (error.indexOf("length") != '-1') {
+        errorMsg = "Password length is not greater than ";
+        errorMsg = errorMsg + passwordScheme["length"] + ".";
+        errors = errors + generateListElement(errorMsg);
     }
 
-    if ("lowercase" in passwordScheme) {
-        if (password.toUpperCase() === password) {
-            errorMsg = "Password does not contain a lowercase letter.";
-            errors = errors + generateListElement(errorMsg);
-        }
+    if (error.indexOf("lowercase") != '-1') {
+        errorMsg = "Password does not contain a lowercase letter.";
+        errors = errors + generateListElement(errorMsg);
     }
 
-    if ("uppercase" in passwordScheme) {
-        if (password.toLowerCase() === password) {
-            errorMsg = "Password does not contain an uppercase letter.";
-            errors = errors + generateListElement(errorMsg);
-        }
+    if (error.indexOf("uppercase") != '-1') {
+        errorMsg = "Password does not contain an uppercase letter.";
+        errors = errors + generateListElement(errorMsg);
     }
 
-    if ("number" in passwordScheme) {
-        if (!/\d/.test(password)) {
-            errorMsg = "Password does not contain a number.";
-            errors = errors + generateListElement(errorMsg);
-        }
+    if (error.indexOf("number") != '-1') {
+        errorMsg = "Password does not contain a number.";
+        errors = errors + generateListElement(errorMsg);
     }
 
-    if ("special" in passwordScheme) {
-        if (!/[!@#$%?]/.test(password)) {
-            errorMsg = "Password does not contain a special character";
-            errors = errors + generateListElement(errorMsg);
-        }
+    if (error.indexOf("special") != '-1') {
+        errorMsg = "Password does not contain a special character";
+        errors = errors + generateListElement(errorMsg);
     }
 
-    if (errors == '') {
+    if (errors === '') {
         document.getElementById('errors').innerHTML="";
         document.getElementById("errors").innerHTML=$("#successMsg").html();
         return true;
@@ -60,6 +49,43 @@ function isValidPassword(password) {
         document.getElementById("errors").innerHTML=errorList;
         return false;
     }
+}
+
+
+function isValidPassword(password) {
+    var passwordScheme = PasswordScheme.scheme;
+    var errorMsg = '';
+
+    if ("length" in passwordScheme) {
+        if (password.length < passwordScheme["length"]) {
+            errorMsg += "length ";
+        }
+    }
+
+    if ("lowercase" in passwordScheme) {
+        if (password.toUpperCase() === password) {
+            errorMsg += "lowercase ";
+        }
+    }
+
+    if ("uppercase" in passwordScheme) {
+        if (password.toLowerCase() === password) {
+            errorMsg += "uppercase ";
+        }
+    }
+
+    if ("number" in passwordScheme) {
+        if (!/\d/.test(password)) {
+            errorMsg += "number ";
+        }
+    }
+
+    if ("special" in passwordScheme) {
+        if (!/[!@#$%?]/.test(password)) {
+            errorMsg += "special";
+        }
+    }
+    return errorMsg;
 }
 
 function setPasswordScheme(passwordScheme) {  
@@ -95,5 +121,6 @@ function getSchemeFromCheckboxes() {
 
 $("#validate").click(function() {
     setPasswordScheme(getSchemeFromCheckboxes());
-    isValidPassword($("#password").val());
+    var errors = isValidPassword($("#password").val());
+    generateErrorMsg(errors);
 });
