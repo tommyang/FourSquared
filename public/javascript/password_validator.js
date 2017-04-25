@@ -2,7 +2,7 @@
  * Takes in a specific error message and then replaces part of a template error message with the
  * input and returns an error message which will be added to the list of errors with the inputted password.
  * @param {String} error - The specific error message type.
- * 
+ *
  * @returns {String} The newly created error message.
  */
 function generateListElement(error) {
@@ -29,28 +29,28 @@ function generateErrorMsg(error) {
     var errorMsg = '';
     var errors = '';
 
-    if (error.indexOf("length") != '-1') {
+    if (error.indexOf("length") !== '-1') {
         errorMsg = "Password length is not greater than ";
         errorMsg = errorMsg + passwordScheme["length"] + ".";
         errors = errors + generateListElement(errorMsg);
     }
 
-    if (error.indexOf("lowercase") != '-1') {
+    if (error.indexOf("lowercase") !== '-1') {
         errorMsg = "Password does not contain a lowercase letter.";
         errors = errors + generateListElement(errorMsg);
     }
 
-    if (error.indexOf("uppercase") != '-1') {
+    if (error.indexOf("uppercase") !== '-1') {
         errorMsg = "Password does not contain an uppercase letter.";
         errors = errors + generateListElement(errorMsg);
     }
 
-    if (error.indexOf("number") != '-1') {
+    if (error.indexOf("number") !== '-1') {
         errorMsg = "Password does not contain a number.";
         errors = errors + generateListElement(errorMsg);
     }
 
-    if (error.indexOf("special") != '-1') {
+    if (error.indexOf("special") !== '-1') {
         errorMsg = "Password does not contain a special character";
         errors = errors + generateListElement(errorMsg);
     }
@@ -110,7 +110,7 @@ function isValidPassword(password) {
     return errorMsg;
 }
 
-/** 
+/**
  * Sets the specified password scheme
  * @memberOf PasswordScheme
  * @param {Array} passwordScheme - An array specifying each part of the password scheme
