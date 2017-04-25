@@ -88,7 +88,7 @@ function isValidPassword(password) {
     return errorMsg;
 }
 
-function setPasswordScheme(passwordScheme) {  
+function setPasswordScheme(passwordScheme) {
     PasswordScheme.scheme = passwordScheme;
 }
 
@@ -118,9 +118,14 @@ function getSchemeFromCheckboxes() {
     return checkedBoxes;
 }
 
-
-$("#validate").click(function() {
-    setPasswordScheme(getSchemeFromCheckboxes());
-    var errors = isValidPassword($("#password").val());
-    generateErrorMsg(errors);
-});
+if (typeof module !== 'undefined' && this.module !== module) {
+    module.exports.setPasswordScheme = setPasswordScheme;
+    module.exports.isValidPassword = isValidPassword;
+}
+else {
+    $("#validate").click(function() {
+        setPasswordScheme(getSchemeFromCheckboxes());
+        var errors = isValidPassword($("#password").val());
+        generateErrorMsg(errors);
+    });
+}
