@@ -14,8 +14,10 @@ const server = require('../bin/www').server;
 const driver = new webdriver.Builder().forBrowser('phantomjs').build();
 
 describe('Password Validator', function(){
+
     beforeEach(function() {
-      driver.get('http://localhost:3000/password');
+        this.timeout(10000);
+        return driver.get('http://localhost:3000/password');
     });
 
     it('should have the correct title', function() {
@@ -33,7 +35,8 @@ describe('Password Validator', function(){
     });
 
     it('should show length error for passwords too short when length check is enabled', function() {
-        driver.findElement(By.id('lengthval')).sendKeys(webdriver.Key.CONTROL, 'a', webdriver.Key.NULL, '7').should.be.fulfilled;
+        driver.findElement(By.id('lengthval')).clear().should.be.fulfilled;
+        driver.findElement(By.id('lengthval')).sendKeys('7').should.be.fulfilled;
         driver.findElement(By.id('password')).sendKeys('aaaaaa').should.be.fulfilled;
         driver.findElement(By.id('validate')).click().should.be.fulfilled;
         return driver.findElement(By.id('errors')).getText().should.eventually.contain('length');

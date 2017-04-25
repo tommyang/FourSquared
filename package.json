@@ -32,7 +32,9 @@
   },
   "scripts": {
     "start": "node ./bin/www",
-    "test": "gulp && nyc mocha",
+    "test": "nyc mocha",
+    "unit": "mocha 'test/**/test-*.js'",
+    "e2e": "mocha 'test/**/e2e-*.js'",
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codeclimate-test-reporter < coverage.lcov && rm coverage.lcov"
   }
 }
