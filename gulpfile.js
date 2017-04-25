@@ -22,4 +22,4 @@ gulp.task('apidoc', function(done){
    }, done);
 });
 
-gulp.task('default', ['lint','apidoc']);
+gulp.task('default', ['lint']);
