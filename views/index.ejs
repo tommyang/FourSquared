@@ -1,22 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <title><%= title %></title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!--link rel='stylesheet' href='/stylesheets/style.css' / -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script   src=“https://code.jquery.com/jquery-1.12.4.min.js”   integrity=“sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=”   crossorigin=“anonymous”></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</head>
-<body>
-  <div class="container bg-success">
-    <h1 class="text-center text-primary"><%= title %></h1>
-    <p class="text-center text-success">Welcome to <%= title %></p> 
-  </div>
-  <br>
-  <div align="center">
-    <a href="/password" class="btn btn-lg btn-success" >Password Validator</a>
-  </div>
-</body>
+
+  <% include ./include/head %>
+  <body>
+    <div class="container bg-success">
+      <h1 class="text-center text-primary"><%= title %></h1>
+      <p class="text-center text-success">Welcome to <%= title %></p> 
+    </div>
+    <br>
+    <div align="center">
+       <a href="/password" class="btn btn-lg btn-success" >
+        Password Validator
+       </a>
+     </div>
+     <% include ./include/bootstrap %>
+  </body>
 </html>
