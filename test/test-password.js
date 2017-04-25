@@ -55,6 +55,10 @@ describe('setPasswordScheme', function() {
     setPasswordScheme(scheme);
     expect(isValidPassword("abcdef")).to.contain('uppercase');
     expect(isValidPassword("Abcdef")).to.be.empty;
+    scheme["number"] = true;
+    setPasswordScheme(scheme);
+    expect(isValidPassword("Abcdef")).to.contain('number');
+    expect(isValidPassword("Abcde1")).to.be.empty;
   });
 });
 

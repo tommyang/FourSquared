@@ -2,7 +2,7 @@
  * Takes in a specific error message and then replaces part of a template error message with the
  * input and returns an error message which will be added to the list of errors with the inputted password.
  * @param {String} error - The specific error message type.
- * 
+ *
  * @returns {String} The newly created error message.
  */
  /* istanbul ignore next: DOM code */
@@ -32,7 +32,7 @@ function generateErrorMsg(error) {
     var errors = '';
 
     if (error.indexOf("length") != '-1') {
-        errorMsg = "Password length is not greater than ";
+        errorMsg = "Password length is less than ";
         errorMsg = errorMsg + passwordScheme["length"] + ".";
         errors = errors + generateListElement(errorMsg);
     }
@@ -112,7 +112,7 @@ function isValidPassword(password) {
     return errorMsg;
 }
 
-/** 
+/**
  * Sets the specified password scheme
  * @memberOf PasswordScheme
  * @param {Array} passwordScheme - An array specifying each part of the password scheme
