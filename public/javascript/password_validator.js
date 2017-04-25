@@ -29,28 +29,28 @@ function generateErrorMsg(error) {
     var errorMsg = '';
     var errors = '';
 
-    if (error.indexOf("length") !== '-1') {
+    if (error.indexOf("length") !== -1) {
         errorMsg = "Password length is not greater than ";
         errorMsg = errorMsg + passwordScheme["length"] + ".";
         errors = errors + generateListElement(errorMsg);
     }
 
-    if (error.indexOf("lowercase") !== '-1') {
+    if (error.indexOf("lowercase") !== -1) {
         errorMsg = "Password does not contain a lowercase letter.";
         errors = errors + generateListElement(errorMsg);
     }
 
-    if (error.indexOf("uppercase") !== '-1') {
+    if (error.indexOf("uppercase") !== -1) {
         errorMsg = "Password does not contain an uppercase letter.";
         errors = errors + generateListElement(errorMsg);
     }
 
-    if (error.indexOf("number") !== '-1') {
+    if (error.indexOf("number") !== -1) {
         errorMsg = "Password does not contain a number.";
         errors = errors + generateListElement(errorMsg);
     }
 
-    if (error.indexOf("special") !== '-1') {
+    if (error.indexOf("special") !== -1) {
         errorMsg = "Password does not contain a special character";
         errors = errors + generateListElement(errorMsg);
     }
