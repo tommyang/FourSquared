@@ -19,10 +19,10 @@ function PasswordScheme() {}
 
 /**
  * Takes a string of all possible errors with the password and checks to see which parts of the password scheme are not matched.
- * Returns an error message detailing each part of the scheme that is not matched.
+ * Returns an boolean to indicate if there were errors or not.
  * @param {String} error - String containing all parts of the password scheme which are not matched.
  *
- * @returns {String} Error message listing all parts of the password scheme which are not matched.
+ * @returns {Boolean} True if there were no errors with the password, false otherwise.
  */
 function generateErrorMsg(error) {
     var passwordScheme = PasswordScheme.scheme;
@@ -72,7 +72,7 @@ function generateErrorMsg(error) {
  * Takes in a password string and checks if it matches the password scheme specified.
  * @param {String} password - The password inputted by the user.
  *
- * @returns {Boolean} True if the password matches the password scheme else false
+ * @returns {String} A string containing all setions of the password scheme which the password does not match with.
  */
 function isValidPassword(password) {
     var passwordScheme = PasswordScheme.scheme;
