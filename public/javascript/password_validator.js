@@ -5,6 +5,7 @@
  *
  * @returns {String} The newly created error message.
  */
+ /* istanbul ignore next: DOM code */
 function generateListElement(error) {
     var template = $("#errorListItem").html();
     var errorMsg = template.replace("error", error);
@@ -24,6 +25,7 @@ function PasswordScheme() {}
  *
  * @returns {Boolean} True if there were no errors with the password, false otherwise.
  */
+ /* istanbul ignore next: DOM code */
 function generateErrorMsg(error) {
     var passwordScheme = PasswordScheme.scheme;
     var errorMsg = '';
@@ -124,6 +126,7 @@ function setPasswordScheme(passwordScheme) {
  *
  * @returns {Array} an array detailing the input for each check box
  */
+ /* istanbul ignore next: DOM code */
 function getSchemeFromCheckboxes() {
     var checkedBoxes = {};
 
@@ -150,6 +153,7 @@ function getSchemeFromCheckboxes() {
     return checkedBoxes;
 }
 
+/* istanbul ignore next: check running in browser or NodeJS */
 if (typeof module !== 'undefined' && this.module !== module) {
     module.exports.setPasswordScheme = setPasswordScheme;
     module.exports.isValidPassword = isValidPassword;
