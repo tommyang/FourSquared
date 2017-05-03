@@ -8,7 +8,7 @@ fi
 
 failed=0
 for file in ${files}; do
-  git show :$file | eslint --stdin --stdin-filename $file
+  git show :$file | ./node_modules/.bin/eslint --stdin --stdin-filename $file
   if [[ $? != 0 ]] ; then
     failed=1
   fi

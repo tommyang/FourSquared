@@ -7,7 +7,7 @@
  */
  /* istanbul ignore next: DOM code */
 function generateListElement(error) {
-    var template = $('#errorListItem').html();
+    var template = $("#errorListItem").html();
     var errorMsg = template.replace("error", error);
 
     return errorMsg;
