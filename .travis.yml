@@ -30,9 +30,15 @@ after_success:
 #     repo: tommyang/FourSquared
 before_deploy:
   - openssl aes-256-cbc -K $encrypted_ab9a73cf9d98_key -iv $encrypted_ab9a73cf9d98_iv -in scripts/deploy_id_rsa.enc -out /tmp/deploy_id_rsa -d
+  - openssl aes-256-cbc -K $encrypted_ab9a73cf9d98_key -iv $encrypted_ab9a73cf9d98_iv -in scripts/servicekey.json.enc -out /tmp/servicekey.json -d
   - chmod 600 /tmp/deploy_id_rsa
 deploy:
-  provider: script
-  script: bash scripts/deploy-travis.sh
-  on:
-    branch: master
+  - provider: script
+    script: bash scripts/deploy-travis.sh
+    on:
+      branch: dev
+  - provider: gae
+    keyfile: /tmp/servicekey.json
+    project: foobaz-164623
+    version: 20170418t044007
+    on: master
