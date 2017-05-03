@@ -28,8 +28,8 @@ function PasswordScheme() {}
  /* istanbul ignore next: DOM code */
 function generateErrorMsg(error) {
     var passwordScheme = PasswordScheme.scheme;
-    var errorMsg = '';
-    var errors = '';
+    var errorMsg = "";
+    var errors = "";
 
     if (error.indexOf("length") !== -1) {
         errorMsg = "Password length is less than ";
@@ -57,8 +57,8 @@ function generateErrorMsg(error) {
         errors = errors + generateListElement(errorMsg);
     }
 
-    if (errors === '') {
-        document.getElementById('errors').innerHTML="";
+    if (errors === "") {
+        document.getElementById("errors").innerHTML="";
         document.getElementById("errors").innerHTML=$("#successMsg").html();
         return true;
     } else {
@@ -78,7 +78,7 @@ function generateErrorMsg(error) {
  */
 function isValidPassword(password) {
     var passwordScheme = PasswordScheme.scheme;
-    var errorMsg = '';
+    var errorMsg = "";
 
     if ("length" in passwordScheme) {
         if (password.length < passwordScheme["length"]) {
@@ -154,7 +154,7 @@ function getSchemeFromCheckboxes() {
 }
 
 /* istanbul ignore next: check running in browser or NodeJS */
-if (typeof module !== 'undefined' && this.module !== module) {
+if (typeof module !== "undefined" && this.module !== module) {
     module.exports.setPasswordScheme = setPasswordScheme;
     module.exports.isValidPassword = isValidPassword;
 }
