@@ -1,10 +1,10 @@
 language: node_js
 node_js:
-  - node
+- node
 cache:
   yarn: true
   directories:
-    - node_modules
+  - node_modules
 notifications:
   slack:
     rooms:
@@ -12,33 +12,28 @@ notifications:
   email:
     on_success: never
 before_script:
-  - yarn global add selenium-standalone
-  - selenium-standalone install
-  - selenium-standalone start >/dev/null 2>&1 &
+- yarn global add selenium-standalone
+- selenium-standalone install
+- selenium-standalone start >/dev/null 2>&1 &
 addons:
   code_climate:
     repo_token: de89840429cefee977923a6736d82cf1366e8fcdde6ad4a4535bd9ba3bd112ad
 after_success:
-  - yarn global add codeclimate-test-reporter
-  - yarn run coverage
-# deploy:
-#   provider: heroku
-#   api_key:
-#     secure: XOGHPLIHszAfmftd9EfBSsTWxCizye2/CpPeFv/FZqrVgpTd9El6y4LFaGjUIktpln3a4YwEFSolDuRMMm8L6RljqjcUbdblp10BY+yXqHQ48KDZBvPaoduEa5QUd3Nhcwv+T03m3yNwlDezU62zhpQ6ZEKwBMnHXfKq4Dx21cnXI4QCGizM8Y1/67yEffZgEzI9gzQjip03AZcoYumU24rD+MnYJPS4Rj3uInN3LAer8Hkho7N+qFQ8Mk4lDTAyANC8yZOjYelFSbXhEe9XkEudpl1kg6FxCUPR+dazQa5LY39TFdxrNsXgNp8CR3HGRoMgUnob2dDl8xxjo/l4LlV1zybj3EyPPtVVzCtHRWUer6geyPBRBFOKq+cojixHl5xt3qa4YyVEnPzszirgBP0FBHsmhSDlgGCZVb65DKpoGsT/5yeCwIIh8sSOX4iPYNqjtGpPijGOK/OpNq89CD60i61w3AYTGSRK+dEI9EV5Ku1XUtJ9BoNr0DPQQUG46UY6JdEUKAQPeZiYJgESpF/Lh8hNoFvQ8BgQvysfM6f4kwr5YuEdixXi/jGuF45hmvuqIhnZg7IeFm2hkqoCGKf7xUQvvu0VRu/i5CVIAimIfo9Q8Z36A1BBrmujNJIA88+ji892c+gKy53e+xNSNyOyDQXmg5e9ycWqKzKTFD8=
-#   app: foursquared
-#   on:
-#     repo: tommyang/FourSquared
+- yarn global add codeclimate-test-reporter
+- yarn run coverage
 before_deploy:
-  - openssl aes-256-cbc -K $encrypted_81073c55b905_key -iv $encrypted_81073c55b905_iv -in scripts/deploy_id_rsa.enc -out /tmp/deploy_id_rsa -d
-  - openssl aes-256-cbc -K $encrypted_81073c55b905_key -iv $encrypted_81073c55b905_iv -in scripts/gae_keyfile.json.enc -out /tmp/gae_keyfile.json -d
-  - chmod 600 /tmp/deploy_id_rsa
+- openssl aes-256-cbc -K $encrypted_81073c55b905_key -iv $encrypted_81073c55b905_iv
+  -in scripts/deploy_id_rsa.enc -out /tmp/deploy_id_rsa -d
+- openssl aes-256-cbc -K $encrypted_81073c55b905_key -iv $encrypted_81073c55b905_iv
+  -in scripts/gae_keyfile.json.enc -out /tmp/gae_keyfile.json -d
+- chmod 600 /tmp/deploy_id_rsa
 deploy:
-  - provider: script
-    script: bash scripts/deploy-travis.sh
-    on:
-      branch: dev
-  - provider: gae
-    keyfile: /tmp/gae_keyfile.json
-    project: foobaz-164623
-    version: 20170418t044007
-    on: master
+- provider: script
+  script: bash scripts/deploy-travis.sh
+  on:
+    branch: dev
+- provider: gae
+  keyfile: "/tmp/gae_keyfile.json"
+  project: foobaz-164623
+  version: 20170418t044007
+  on: master
