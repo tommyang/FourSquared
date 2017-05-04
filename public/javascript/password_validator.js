@@ -90,6 +90,7 @@ function isValidPassword(password) {
         if (password.toUpperCase() === password) {
             errorMsg += "lowercase ";
         }
+
     }
 
     if ("uppercase" in passwordScheme) {
@@ -129,11 +130,11 @@ function setPasswordScheme(passwordScheme) {
  /* istanbul ignore next: DOM code */
 function getSchemeFromCheckboxes() {
     var checkedBoxes = {};
-
+	
     if ($("#lengthBox").is(":checked")) {
         checkedBoxes["length"] = Number($("#lengthval").val());
     }
-
+	
     if ($("#lowercaseBox").is(":checked")) {
         checkedBoxes["lowercase"] = true;
     }
