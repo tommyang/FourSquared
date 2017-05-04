@@ -80,7 +80,7 @@ function isValidPassword(password) {
     var passwordScheme = PasswordScheme.scheme;
     var errorMsg = "";
 
-    if ("length" in passwordScheme) {
+    if ('length' in passwordScheme) {
         if (password.length < passwordScheme["length"]) {
             errorMsg += "length "
         }
