@@ -82,7 +82,7 @@ function isValidPassword(password) {
 
     if ("length" in passwordScheme) {
         if (password.length < passwordScheme["length"]) {
-            errorMsg += "length ";
+            errorMsg += "length "
         }
     }
 
