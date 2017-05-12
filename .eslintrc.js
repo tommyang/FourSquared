@@ -22,7 +22,15 @@ module.exports = {
             "error",
             "always"
         ]
-        "null": [
+        "eqeqeq": [
+            "error",
+            "always"
+        ]
+        "curly": [
+            "error",
+            "all"
+        ]
+        "eqeqeq": [
             "error",
             "always"
         ]
