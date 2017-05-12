@@ -28,15 +28,13 @@ module.exports = {
         ],
         "curly": [
             "error",
-            "always"
-        ]
-        "no-empty-function": [
-            "error",
-            "always"
-        ]
+            "all"
+        ],
         "no-tabs": [
-            "error",
-            "always"
+            "error"
+        ],
+        "no-trailing-spaces": [
+            "error" 
         ]
     }
 };
