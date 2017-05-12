@@ -30,5 +30,13 @@ module.exports = {
             "error",
             "always"
         ]
+        "no-empty-function": [
+            "error",
+            "always"
+        ]
+        "no-tabs": [
+            "error",
+            "always"
+        ]
     }
 };
