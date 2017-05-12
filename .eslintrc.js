@@ -21,16 +21,12 @@ module.exports = {
         "semi": [
             "error",
             "always"
-        ]
+        ],
         "eqeqeq": [
             "error",
             "always"
-        ]
+        ],
         "curly": [
-            "error",
-            "all"
-        ]
-        "eqeqeq": [
             "error",
             "always"
         ]
