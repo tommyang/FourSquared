@@ -22,5 +22,9 @@ module.exports = {
             "error",
             "always"
         ]
+        "null": [
+            "error",
+            "always"
+        ]
     }
 };
