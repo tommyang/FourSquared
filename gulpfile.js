@@ -1,30 +1,34 @@
 'use strict';
+var dir = require('require-dir');
 
-const gulp = require('gulp');
-const jshint = require('gulp-jshint');
-var jsdoc = require('gulp-jsdoc3');
+// const gulp = require('gulp');
+// const jshint = require('gulp-jshint');
+// var jsdoc = require('gulp-jsdoc3');
 
-/**
-* Lint Checker
-*/
-gulp.task('lint', function () {
-  gulp.src('./**/*.js')
-    .pipe(jshint())
-})
+// /**
+// * Lint Checker
+// */
+// gulp.task('lint', function () {
+//   gulp.src('./**/*.js')
+//     .pipe(jshint())
+// })
 
-/** 
- * Run documentation generator
- */
-/*gulp.task('apidoc', function(done) {
-  apidoc({
-    src: "public/javascript",
-    dest: "doc/"
-  }, done);
-});*/
+// /** 
+//  * Run documentation generator
+//  */
+// gulp.task('apidoc', function(done) {
+//   apidoc({
+//     src: "public/javascript",
+//     dest: "doc/"
+//   }, done);
+// });
 
-gulp.task('doc', function (cb) {
-    gulp.src(['README.md', './public/javascript/*.js'], {read: false})
-            .pipe(jsdoc(cb));
-});
+// gulp.task('doc', function (cb) {
+//     gulp.src(['README.md', './public/javascript/*.js'], {read: false})
+//             .pipe(jsdoc(cb));
+// });
 
-gulp.task('default', ['lint', 'doc']);
+// gulp.task('default', ['lint', 'doc']);
+
+
+dir('./gulp/', { recurse: true });
