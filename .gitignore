@@ -76,4 +76,5 @@ mobile/www/*
 !mobile/README
 *.swp
 *.iml
+yarn.lock
 

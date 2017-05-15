@@ -48,6 +48,8 @@ describe('Appointment Test', function() {
         company.paid_time=new Date();
 
         company.save(function(err, c){
+            if(err) throw err;
+            
             currCompany=c;
             request(url)
                 .post('/api/appointments')
