@@ -30,7 +30,8 @@ app.io = require('socket.io')();
 
 global.__base = __dirname + '/';
 
-var mongoURI = process.env.MONGOLAB_URI || 'YOUR MONGODB CONNECTION ON mLAB';
+// var mongoURI = process.env.MONGOLAB_URI || 'YOUR MONGODB CONNECTION ON mLAB';
+var mongoURI = process.env.MONGOLAB_URI || 'mongodb://test:JjMRaJoyaJ}nxg6+A/63@ds143241.mlab.com:43241/4sqd';
 //var mongoURI = process.env.MONGOLAB_URI || 'mongodb://admin:admin@ds061335.mongolab.com:61335/heroku_w9bxpzpc';
 console.log('Connecting to DB: ' + mongoURI);
 var db = monk(mongoURI);
