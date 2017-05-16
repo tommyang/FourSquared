@@ -8,7 +8,7 @@ cache:
 notifications:
   slack:
     rooms:
-      secure: 
+      secure:
   email:
     on_success: never
 before_script:
