@@ -25,6 +25,7 @@ ratings:
   - "**.py"
   - "**.rb"
 exclude_paths:
+- docs/
 - test/
 - public/fonts
 - public/images
