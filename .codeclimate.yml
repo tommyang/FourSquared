@@ -1,0 +1,33 @@
+---
+engines:
+  csslint:
+    enabled: true
+  duplication:
+    enabled: false
+    config:
+      languages:
+      - javascript
+  eslint:
+    enabled: true
+    checks:
+      complexity:
+        enabled: false
+  fixme:
+    enabled: true
+ratings:
+  paths:
+  - "**.css"
+  - "**.inc"
+  - "**.js"
+  - "**.jsx"
+  - "**.module"
+  - "**.php"
+  - "**.py"
+  - "**.rb"
+exclude_paths:
+- test/
+- public/fonts
+- public/images
+- public/plugins
+- public/stylesheets
+- docs/
