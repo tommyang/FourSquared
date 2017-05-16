@@ -9,7 +9,8 @@
     "start": "node ./bin/www",
     "test": "nyc mocha",
     "unit": "mocha 'test/**/test-*.js'",
-    "e2e": "mocha 'test/**/e2e-*.js'"
+    "e2e": "mocha 'test/**/e2e-*.js'",
+    "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codeclimate-test-reporter < coverage.lcov && rm coverage.lcov"
   },
   "dependencies": {
     "async": "^0.9.0",
