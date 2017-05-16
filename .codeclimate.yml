@@ -33,4 +33,7 @@ exclude_paths:
 - public/plugins
 - public/stylesheets
 - client/bower_components
+- dist/bower_components
+- dist/js
+- dist/min
 - docs/
