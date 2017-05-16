@@ -12,6 +12,8 @@ engines:
     checks:
       complexity:
         enabled: false
+      max-statements:
+        enabled: false
   fixme:
     enabled: true
 ratings:
