@@ -12,19 +12,18 @@ notifications:
   email:
     on_success: never
 before_script:
+- chmod 4755 /usr/lib/chromium-browser/chrome-sandbox
 addons:
   code_climate:
     repo_token: de89840429cefee977923a6736d82cf1366e8fcdde6ad4a4535bd9ba3bd112ad
 after_success:
-- yarn global add codeclimate-test-reporter
-- yarn run coverage
 before_deploy:
 - openssl aes-256-cbc -k "$encryption_key" -in scripts/deploy_id_rsa.enc -out /tmp/deploy_id_rsa -d
 - openssl aes-256-cbc -k "$encryption_key" -in scripts/gae_keyfile.json.enc -out /tmp/gae_keyfile.json -d
 - chmod 600 /tmp/deploy_id_rsa
 deploy:
 - provider: script
-  script: bash scripts/deploy-travis.sh
+  script: 
   on:
     branch: dev
 - provider: gae
