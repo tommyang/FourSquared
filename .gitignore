@@ -5,3 +5,4 @@ config.codekit
 newrelic_agent.log
 dist/*
 client/bower_components/*
+server/log/*
