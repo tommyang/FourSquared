@@ -1,49 +1,26 @@
-# web-app [ ![Codeship Status for CSE112-GoldTeam/web-app](https://codeship.com/projects/5f33bf40-cb9d-0133-dbda-4a84e368cd36/status?branch=master)](https://codeship.com/projects/59497)
+# Foursquared
 
-First Run
-----------------------------
-1. Setup Account with [mLab](https://mlab.com/)
-2. Copy mongoDB access point into app.js:
+[![Build Status](https://travis-ci.com/tommyang/FourSquared.svg?token=NysWAkA5dUSZU1rvMZtV&branch=master)](https://travis-ci.com/tommyang/FourSquared)
+[![Code Climate](https://codeclimate.com/repos/58f17aefc17c0d026600049c/badges/50bb01546d5d3dbdddf9/gpa.svg)](https://codeclimate.com/repos/58f17aefc17c0d026600049c/feed)
 
-        $ var mongoURI = process.env.MONGOLAB_URI || 'YOUR MONGODB CONNECTION ON mLAB';
-        
-2. Install [Node.js](http://nodejs.org/download/)
-3. Navigate to the root directory
-4. Install npm dependencies:
-
-        $ npm install
-        $ npm install --global gulp
-
-6. Use ``gulp`` to run the application
-7. Navigate your browser to [http://localhost:4000](http://localhost:4000/)
-
-Push to testing environment
-----------------------------
-1. Simply push your experimental changes to the ``develop`` branch.
-2. Changes may be view on the [staging site](http://fubar-staging.herokuapp.com/).
-
-Logging in as Peter
-----------------------------
-In order to login as peter, use the following credentials
-
-	username: peter@enque.com
-	password: peter
-	
-The live app can be found [here](http://team-fubar.herokuapp.com/).
-	
-Slack Integration can be found here
-
-	team-fubar.slack.com
-	
-	username: gev@ucsd.edu
-	password: teamfubar
-
-Access to CI platform on Codeship
-----------------------------
-Go to the [Codeship](http://codeship.io) website.
-Use the following credentials:
-
-	username: gev@ucsd.edu
-	password: teamfubar
-
-Click the restart button on the latest build to rebuild it.
+## Get Started
+- Install [Node.js](https://nodejs.org/en/download/package-manager/) and [Yarn](https://yarnpkg.com/en/docs/install).
+  - Note the step to put this line in your shell profile `export PATH="$PATH:$(yarn global bin)"`.
+- Clone this repo.
+  - If you previously cloned this repo when it was under Henry's account, run `git remote set-url origin git@github.com:tommyang/FourSquared.git` if you use SSH or `git remote set-url origin https://github.com/tommyang/FourSquared.git` if you use HTTPS.
+- Install local dependencies `$ yarn`.
+- Install these if you want to run end-to-end tests locally: 
+  - `$ yarn global add gulp-cli phantomjs`.
+  - Install [Selenium Standalone Server](http://www.seleniumhq.org/download/).
+- Write tests in `/test`, preferrably with the following naming conventions:
+  - `test-xxx.js` for unit tests. See `test-foo.js` for an example.
+  - `e2e-xxx.js` for end-to-end tests. See `e2e-password.js` for an example.
+- Write code. See `foo.js` for an example.
+- To start the server locally, run `$ yarn start` and got to `http://localhost:3000`.
+- To run the tests:
+    - To run unit tests only, run `$ yarn unit`.
+    - To run end-to-end tests only, make sure the server is not running, start Selenium Standalone Server, and then run `$ yarn e2e`.
+    - To run all tests, make sure the server is not running, start Selenium Standalone Server, and then run `$ yarn test`.
+- Commit and push. Travis CI will run the tests using Mocha. Test coverage information is tracked by Code Climate. If tests return successfully, Travis will deploy this version to Heroku automatically.
+  - If you are pushing commits with just "cosmetic changes" (such as updating this README file), include `[ci skip]` in the commit message to skip Travis CI.
+- Check `#commits` Slack channel for Travis CI status report.
