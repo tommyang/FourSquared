@@ -1,11 +1,6 @@
 // gulpfile.js
 var gulp = require('gulp');
 var child_process = require('child_process');
-//var gutil = require('gulp-util');
-//var clean = require('gulp-clean');
-//var concat = require('gulp-concat');
-//var uglify = require('gulp-uglify');
-//var rename = require('gulp-rename');
 var server = require('gulp-express');
 var Server = require('karma').Server;
 var browserSync = require('browser-sync');
@@ -19,36 +14,11 @@ var plugins= require('gulp-load-plugins')({
 
 });
 
-
-//console.log(plugins);
-//var argv = require('yargs').argv;
-
-//var nodemon = require('gulp-nodemon');
-//var jshint = require('gulp-jshint');
-
-//var checkPages = require('check-pages');
-
-//var mongobackup = require('mongobackup');
-//var shell = require('gulp-shell');
-
-
 var exec = require('child_process').exec;
 
 function execute(command, callback) {
     exec(command, function(error, stdout, stderr){callback(stdout);});
 }
-
-//// these plugins are added first, but still need for
-//// dev team to group files by types to make it happen
-//// such as .js folder, .css folder, build folder
-
-//var minifyCSS = require('gulp-minify-css');
-
-
-//// end of additional plugins
-
-
-//// begin of additional plugins
 
 /**
  * Run test once and exit
@@ -104,10 +74,6 @@ gulp.task('build', ['compress'], function() {
         path.basename += ".min";
     }))
     .pipe(gulp.dest('./build/css'));
-
-    //.pipe(minifyCSS({keepBreaks:false}))
-    //.pipe(rename('style.min.css'))
-    //.pipe(gulp.dest('./public/stylesheets/'))
 });
 
 //// end of additional plugins
@@ -135,27 +101,6 @@ gulp.task('nodemon', ['lint'], function (cb) {
       });
     });
 });
-
-/*gulp.task('mongostart', function() {
-    child_process.exec('mongod --dbpath db', function(err, stdout, stderr) {
-        if(err) {
-            console.log(err.stack);
-            console.log("Error code: " + err.code);
-            console.log("Signal received: " + err.signal);
-        }
-    });
-});
-
-gulp.task('mongoend', function() {
-
-    child_process.exec("mongo --eval 'db.shutdownServer()' admin", function(err, stdout, stderr) {
-        if(err) {
-            console.log(err.stack);
-            console.log("Error code: " + err.code);
-            console.log("Signal received: " + err.signal);
-        }
-    });
-});*/
 
 gulp.task('browser-sync', ['nodemon'/*, 'mongostart', 'watch-check'*/], function () {
 
@@ -285,12 +230,6 @@ gulp.task('checkLocal', ['lint'], function(callback) {
 
   plugins.checkPages(console, options, callback);
 });
-
-//gulp.task('watch-check', function() {
-//    gulp.watch('public/**/*.*', ['lint']);
-//    gulp.watch('views/**/*.*', ['lint']);
-//    gulp.watch('public/javascripts/*.js', ['lint']);
-//});
 
 // check pages on development
 gulp.task('checkDev', ['lint'], function(callback) {
