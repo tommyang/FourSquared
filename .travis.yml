@@ -12,7 +12,11 @@ notifications:
   email:
     on_success: never
 before_script:
+<<<<<<< HEAD
 - sudo chmod 4755 /usr/lib/chromium-browser/chrome-sandbox
+=======
+- chmod 4755 /usr/lib/chromium-browser/chrome-sandbox
+>>>>>>> 6ac5c263a84b1ca0bb1d3e807ee5711ffc2f9015
 addons:
   code_climate:
     repo_token: de89840429cefee977923a6736d82cf1366e8fcdde6ad4a4535bd9ba3bd112ad
