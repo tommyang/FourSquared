@@ -8,15 +8,11 @@ cache:
 notifications:
   slack:
     rooms:
-      secure: K6OJAtM5yeYVbo5jhp3qi06mJaw14cLd27P9vS+KMwjq0lBhvXVBXMZcq1GsMkhG6/pNdGLQWKA9lZBR+K4GqrKldn6DrwF8gDVL4z2eQ0obSk5vH+VZzswbpCBfF5yJnuys72jnQW6m1wxSXMIVI5Tl/zEOcyPvruMrIzJP5pR1gE9+NamO8R2AY51v8ZhvM0gFN/MTHFb+PF7dwnJoJZcC3TRQLojFxoh9UnzaAJELpiqSQ6KRYzNkb66/1TXTNrksOFCkz5zBP45loYT983rTY+hhCfa8Q0No70KDQa9aG39p31wPD/juIbykzPe22t8jI2QNsUFFVjmuTalTpv/q7fClJzii4jlW5aE+mwbncNzuR2Irz+HAeTPeDZETBCjZr4N43K7HFf0kXim6daJ4b6GPXQvxzBQDwa3Nm5swNcmyz7I+cCenVsF24yTp+7sJP/7jYjZo2UH+6UwXlfqbKbg4T5mzKt+QEp6Tn+oRqLtbYy5yJE6cPiEOXFywbl2g5Zh5ivsvxnCbwwtpvFCTo/8K830b249vA9cVvpeMZ1zdZHkv4CJYcraD8gbicFXGb7dNDm4JC6hwXoylry88YlJ+eisluwbv/q5epof/eR0puTCAFrGCYwDZMfXmWBWc4S8Zs/RtgajbdJ2lpZ2eO4DD3DDbWYdQkDVahfs=
   email:
     on_success: never
 before_script:
 <<<<<<< HEAD
 - sudo chmod 4755 /usr/lib/chromium-browser/chrome-sandbox
-=======
-- chmod 4755 /usr/lib/chromium-browser/chrome-sandbox
->>>>>>> 6ac5c263a84b1ca0bb1d3e807ee5711ffc2f9015
 addons:
   code_climate:
     repo_token: de89840429cefee977923a6736d82cf1366e8fcdde6ad4a4535bd9ba3bd112ad
