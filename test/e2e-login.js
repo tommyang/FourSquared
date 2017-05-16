@@ -27,7 +27,7 @@ describe('Login page', function(){
     it('should be able to type in email', function() {
         var emailField = driver.findElement(By.id('email'));
         emailField.sendKeys("asdf@asdf.com");
-        emailField.getAttribute("value");.should.equal("asdf@asdf.com");
+        emailField.getAttribute("value").should.equal("asdf@asdf.com");
     });
 
     it('should have password field', function() {
