@@ -32,4 +32,5 @@ exclude_paths:
 - public/images
 - public/plugins
 - public/stylesheets
+- client/bower_components
 - docs/
