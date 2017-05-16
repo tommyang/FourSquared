@@ -13,6 +13,9 @@ notifications:
     on_success: never
     on_failure: never
 before_script:
+- yarn global add selenium-standalone
+- selenium-standalone install
+- selenium-standalone start >/dev/null 2>&1 &
 addons:
   code_climate:
     repo_token: de89840429cefee977923a6736d82cf1366e8fcdde6ad4a4535bd9ba3bd112ad

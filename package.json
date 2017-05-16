@@ -7,7 +7,9 @@
   "scripts": {
     "build": "gulp",
     "start": "node ./bin/www",
-    "test": ""
+    "test": "nyc mocha",
+    "unit": "mocha 'test/**/test-*.js'",
+    "e2e": "mocha 'test/**/e2e-*.js'"
   },
   "dependencies": {
     "async": "^0.9.0",
@@ -47,6 +49,8 @@
   },
   "devDependencies": {
     "browser-sync": "^2.18.11",
+    "chai": "^3.5.0",
+    "chai-as-promised": "^6.0.0",
     "check-pages": "^0.10.0",
     "git-hooks": "^1.1.8",
     "gulp": "^3.9.1",
@@ -65,7 +69,10 @@
     "karma": "^1.7.0",
     "karma-chrome-launcher": "^0.1.7",
     "karma-jasmine": "^0.3.5",
+    "mocha": "^3.2.0",
     "mongobackup": "^0.1.8",
+    "nyc": "^10.2.0",
+    "selenium-webdriver": "^3.4.0",
     "yargs": "^3.4.4"
   },
   "engines": {
