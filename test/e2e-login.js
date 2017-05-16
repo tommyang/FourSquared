@@ -24,12 +24,6 @@ describe('Login page', function(){
         driver.findElements(By.id('email')).should.not.equal(0);        
     });
 
-    it('should be able to type in email', function() {
-        var emailField = driver.findElement(By.id('email'));
-        emailField.sendKeys("asdf@asdf.com");
-        emailField.getAttribute("value").should.equal("asdf@asdf.com");
-    });
-
     it('should have password field', function() {
         driver.findElements(By.id('password')).should.not.equal(0);
     });
