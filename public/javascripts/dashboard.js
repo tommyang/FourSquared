@@ -69,7 +69,10 @@ function getAppDate( date ){
   return appTime;
 }
 
+module.exports.checkTime = checkTime;
+
 $(function() {
   getDate();
   $(startTime);
 });
+
