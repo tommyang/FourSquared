@@ -30,4 +30,3 @@ exclude_paths:
 - public/images
 - public/plugins
 - public/stylesheets
-- docs/

@@ -5,6 +5,7 @@ var server = require('gulp-express');
 var Server = require('karma').Server;
 var browserSync = require('browser-sync');
 var mongobackup = require('mongobackup');
+var jsdoc = require('gulp-jsdoc3');
 
 var plugins= require('gulp-load-plugins')({
 	pattern: ['gulp-*', 'gulp.*', 'check-*', 
@@ -310,4 +311,10 @@ gulp.task('apidoc-url', function(){
   return gulp.src('./README.md')
   .pipe(plugins.open('', options));
 });
+
+gulp.task('doc', function (cb) {
+    gulp.src(['README.md', './public/javascripts/*.js'], {read: false})
+            .pipe(jsdoc(cb));
+});
+
 gulp.task('doc-deploy', ['apidoc','deploy-gh','apidoc-url']);
