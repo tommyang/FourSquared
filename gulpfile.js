@@ -7,7 +7,7 @@ var browserSync = require('browser-sync');
 var mongobackup = require('mongobackup');
 
 var plugins= require('gulp-load-plugins')({
-	pattern: ['gulp-*', 'gulp.*', 'check-*', 
+	pattern: ['gulp-*', 'gulp.*', 'check-*',
 	'jasmine-*', 'mongobackup', 'karma', 'karma-*', 'yargs'],
 	scope: ['dependencies', 'devDependencies'],
 	lazy: false
@@ -161,10 +161,10 @@ gulp.task('test', function (done) {
 //               - must be authenticated with heroku
 //               - must have git installed and be in application root directory
 //               - must be authenticated with git so that password does not have to be entered on push
-gulp.task('stage', ['test'], function(){ 
+gulp.task('stage', ['test'], function(){
     execute('git symbolic-ref --short HEAD', function(br){
         console.log('deploying current branch: ' + br);
-        var timer; 
+        var timer;
         return gulp.src('')
                 .pipe(plugins.shell([
                     '<%= setKillTimer() %>',
@@ -197,7 +197,7 @@ gulp.task('stage', ['test'], function(){
                         }
                     }
                 }));
-    }); 
+    });
 });
 
 // check pages on local
@@ -275,18 +275,18 @@ plugins.checkPages(console, options, callback);
 var gulp = require('gulp'),
     apidoc = require('gulp-apidoc');
 
-gulp.task('apidoc', function(){
-          plugins.apidoc.exec({
+gulp.task('apidoc', function(done){
+          apidoc({
             src: "routes/api",
             dest: "apidoc/"
-          });
+          },done);
 });
 
 // Deploy API Docs to gh pages
 var deploy = require('gulp-gh-pages');
 
 gulp.task('deploy-gh', function () {
-   	var currentdate = new Date();    
+   	var currentdate = new Date();
 	/*var timeString = currentdate.getDate() + "/"
                 + (currentdate.getMonth()+1)  + "/"
                 + currentdate.getFullYear() + " @ "
@@ -294,10 +294,10 @@ gulp.task('deploy-gh', function () {
                 + currentdate.getMinutes() + ":"
                 + currentdate.getSeconds();*/
     var options = {
-        message :  "Update API Doc --skip-ci"
+        message :  "Update API Doc --skip-ci [ci skip]"
     };
     return gulp.src('./apidoc/**/*')
-        .pipe(plugins.deploy(options));
+        .pipe(deploy(options));
 });
 
 var open = require('gulp-open');
