@@ -21,7 +21,7 @@ describe('Homepage', function(){
     });
 
     it('should have the correct title', function() {
-        return driver.getTitle().should.eventually.equal("Foursquared");
+        return driver.getTitle().should.eventually.equal("Landing Page");
     });
 
     after(function() {
