@@ -21,7 +21,7 @@ notifications:
     on_success: never
     on_failure: never
 before_script:
-- yarn global add selenium-standalone
+- npm -g install selenium-standalone
 - selenium-standalone install
 - selenium-standalone start >/dev/null 2>&1 &
 addons:
