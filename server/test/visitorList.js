@@ -179,7 +179,7 @@ describe("VisitorList", function() {
             .send()
             .expect(200)
             .end(function(err, res){
-                should.exist(res.body.visitors);
+                (res.body.visitors !== null).should.be.true;
                 res.body.visitors.should.be.an.instanceof(Array);
                 res.body.visitors.should.have.length.of(2);
                 done();
@@ -216,7 +216,7 @@ describe("VisitorList", function() {
                         +'/visitor/'+visitor1._id)
                     .expect(200)
                     .end(function(err, res){
-                        should.exist(res.body);
+                        (res.body !== null).should.be.true;
                         res.body.visitors.should.be.an.instanceof(Array);
                         res.body.visitors.should.have.length.of(prevLen-1);
                         done();

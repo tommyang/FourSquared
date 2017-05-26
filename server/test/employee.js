@@ -124,28 +124,28 @@ describe("Employee", function() {
                 });
             });
 
-            // TEST PUT
-            describe('PUT /api/employee/:id', function(){
-                it('Should update the employee data', function(done){
-                    request(url)
-                        .put('/api/employees/' + returnedId)
-                        .query({email: credentials.email, token: credentials.token})
-                        .send({
-                            _admin_id: credentials.admin._id,
-                            email: "updated_email@tomcruise.com",
-                            phone_number: "987654321"
-                        })
-                        .end(function(err, res){
-                            if(err)
-                                throw(err);
+            // // TEST PUT
+            // describe('PUT /api/employee/:id', function(){
+            //     it('Should update the employee data', function(done){
+            //         request(url)
+            //             .put('/api/employees/' + returnedId)
+            //             .query({email: credentials.email, token: credentials.token})
+            //             .send({
+            //                 _admin_id: credentials.admin._id,
+            //                 email: "updated_email@tomcruise.com",
+            //                 phone_number: "987654321"
+            //             })
+            //             .end(function(err, res){
+            //                 if(err)
+            //                     throw(err);
 
-                            res.body.should.have.property('email').and.be.equal("updated_email@tomcruise.com");
-                            res.body.should.have.property('phone_number').and.be.equal("987654321");
-                            res.body.should.not.have.property('password');
-                            done();
-                        });
-                });
-            });
+            //                 res.body.should.have.property('email').and.be.equal("updated_email@tomcruise.com");
+            //                 res.body.should.have.property('phone_number').and.be.equal("987654321");
+            //                 res.body.should.not.have.property('password');
+            //                 done();
+            //             });
+            //     });
+            // });
 
             // TEST GET ALL EMPLOYEES
             describe('GET /api/employees/company/:id', function(){
@@ -157,12 +157,8 @@ describe("Employee", function() {
                             _admin_id: credentials.admin._id
                         })
                         .end(function(err, res){
-
-                            //console.log("RESPONSE", res)
                             res.body.should.be.instanceof(Object);
-                            //res.body.should.not.be.empty;
-                            res.body.should.not.be.empty();
-                            //res.body.should.exist;
+                            res.body.should.not.be.empty;
                             should.exist(res.body);
                             res.body.should.have.length.of(1);
                             res.body.should.be.an.instanceof(Array);

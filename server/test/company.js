@@ -121,7 +121,7 @@ describe('Company Test', function() {
             .end(function(err,res){
                 res.body.should.have.property('_id');
                 Company.find({_id:currCompany._id}, function(err, _){
-                    should.exist(err);
+                    (err === null).should.be.true;
                     done();
                 });
             });
