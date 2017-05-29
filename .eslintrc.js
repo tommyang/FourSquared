@@ -7,34 +7,34 @@ module.exports = {
     "extends": "eslint:recommended",
     "rules": {
         "indent": [
-            "error",
+            1,
             4
         ],
         "linebreak-style": [
-            "error",
+            1,
             "unix"
         ],
         "quotes": [
-            "error",
+            1,
             "double"
         ],
         "semi": [
-            "error",
+            1,
             "always"
         ],
         "eqeqeq": [
-            "error",
+            1,
             "always"
         ],
         "curly": [
-            "error",
+            1,
             "all"
         ],
         "no-tabs": [
-            "error"
+            1
         ],
         "no-trailing-spaces": [
-            "error" 
+            1 
         ]
     }
 };

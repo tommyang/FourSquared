@@ -15,7 +15,7 @@ var mongoose = require('mongoose');
 var socketIO = require('./socket/socket');
 var MY_STRIPE_TEST_KEY = 'sk_test_dqzYJJ6xWGgg6U1hgQr3hNye';
 var stripe = require ('stripe')(MY_STRIPE_TEST_KEY);
-var MY_SLACK_WEBHOOK_URL = 'https://hooks.slack.com/services/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';
+var MY_SLACK_WEBHOOK_URL ='https:////hooks.slack.com/services/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';
 var slack = require('slack-notify')(MY_SLACK_WEBHOOK_URL);
 //var oauthserver = require('oauth2-server');
 var newrelic = require('newrelic');
@@ -76,7 +76,7 @@ app.set('port', config.port);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, '../dist')));
+app.use(express.static(path.join(__dirname, '../client')));
 app.set('view engine', 'html');
 
 app.use(cors());
@@ -90,49 +90,49 @@ if(app.get('env') !== 'development') {
 }
 
 app.get('/settings', function(req,res){
-  res.sendFile(path.join(__dirname,'../dist/assets/views/settings.html'))
+  res.sendFile(path.join(__dirname,'../client/assets/views/settings.html'))
 });
 app.get('/admin-companies', function(req,res){
-  res.sendFile(path.join(__dirname,'../dist/assets/views/admin-companies.html'))
+  res.sendFile(path.join(__dirname,'../client/assets/views/admin-companies.html'))
 });
 app.get('/admin-dashboard', function(req,res){
-  res.sendFile(path.join(__dirname,'../dist/assets/views/admin-dashboard.html'))
+  res.sendFile(path.join(__dirname,'../client/assets/views/admin-dashboard.html'))
 });
 app.get('/analytics_raw', function(req,res){
-  res.sendFile(path.join(__dirname,'../dist/assets/views/analytics_raw.html'))
+  res.sendFile(path.join(__dirname,'../client/assets/views/analytics_raw.html'))
 });
 app.get('/appointments', function(req,res){
-  res.sendFile(path.join(__dirname,'../dist/assets/views/appointments.html'))
+  res.sendFile(path.join(__dirname,'../client/assets/views/appointments.html'))
 });
 app.get('/checkin', function(req,res){
-  res.sendFile(path.join(__dirname,'../dist/assets/views/checkin.html'))
+  res.sendFile(path.join(__dirname,'../client/assets/views/checkin.html'))
 });
 app.get('/employees', function(req,res){
-  res.sendFile(path.join(__dirname,'../dist/assets/views/employees.html'))
+  res.sendFile(path.join(__dirname,'../client/assets/views/employees.html'))
 });
 app.get('/forgot-password', function(req,res){
-  res.sendFile(path.join(__dirname,'../dist/assets/views/forgot-password.html'))
+  res.sendFile(path.join(__dirname,'../client/assets/views/forgot-password.html'))
 });
 app.get('/form-builder', function(req,res){
-  res.sendFile(path.join(__dirname,'../dist/assets/views/form-builder.html'))
+  res.sendFile(path.join(__dirname,'../client/assets/views/form-builder.html'))
 });
 app.get('/login', function(req,res){
-  res.sendFile(path.join(__dirname,'../dist/assets/views/login.html'))
+  res.sendFile(path.join(__dirname,'../client/assets/views/login.html'))
 });
 app.get('/signup', function(req,res){
-  res.sendFile(path.join(__dirname,'../dist/assets/views/signup.html'))
+  res.sendFile(path.join(__dirname,'../client/assets/views/signup.html'))
 });
 app.get('/visitors', function(req,res){
-  res.sendFile(path.join(__dirname,'../dist/assets/views/visitors.html'))
+  res.sendFile(path.join(__dirname,'../client/assets/views/visitors.html'))
 });
 app.get('/404', function(req,res){
-  res.sendFile(path.join(__dirname,'../dist/assets/views/404.html'))
+  res.sendFile(path.join(__dirname,'../client/assets/views/404.html'))
 });
 app.get('/admin-settings', function(req,res){
-  res.sendFile(path.join(__dirname,'../dist/assets/views/admin-settings.html'))
+  res.sendFile(path.join(__dirname,'../client/assets/views/admin-settings.html'))
 });
 app.get('/index', function(req,res){
-  res.sendFile(path.join(__dirname,'../dist/assets/views/index.html'))
+  res.sendFile(path.join(__dirname,'../client/assets/views/index.html'))
 });   
 /*
  * Error Handler.

@@ -2,22 +2,55 @@
  * Created by DanielKong on 3/8/16.
  */
 $(document).ready(function(){
+var companyId;
+    $('#form-company-name').on('input', function() {
+        var name = $(this).val();
+        if(name) {
+            $(this).removeClass("invalid").addClass("valid");
+        } else {
+            $(this).removeClass("valid").addClass("invalid");
+        }
+    });
+    
+    $('#form-email').on('input', function() {
+        var email = $(this).val();
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        var validEmail = re.test(email);
+        if(validEmail) {
+            $(this).removeClass("invalid").addClass("valid");
+        } else {
+            $(this).removeClass("valid").addClass("invalid");
+        }
+    });
 
-    var companyId;
+    $('#form-phone').on('input', function() {
+        var phone = $(this).val();
+        var re = /^((\+\d{1,2}|1)[\s.-]?)?\(?[2-9](?!11)\d{2}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
+        var validPhone = re.test(phone);
+        if(validPhone) {
+            $(this).removeClass("invalid").addClass("valid");
+        } else {
+            $(this).removeClass("valid").addClass("invalid");
+        }
+    });
 
     //Listener for Initial Sign up of an Employee
     $('#submit-btn').on('click', function(){
         var employeeData = grabEmployeeData();
         console.log(employeeData);
         ajaxPost('/api/employees',employeeData);
-
     });
 
     //Listener for creating a company
     $('#submit-company-btn').on('click',function(){
         var companyData = grabCompanyData();
-        console.log(companyData);
-        ajaxPost('/api/companies',companyData);
+        if(validateCompany(companyData)) { 
+        console.log(validateCompany(companyData));
+            console.log(companyData);
+            ajaxPost('/api/companies',companyData);
+        } else {
+            event.preventDefault();
+        }
     })
 
     //Grab Company Data from form
@@ -72,22 +105,27 @@ $(document).ready(function(){
         });
     }
 
-    function validateCompany(){
-        var companyName = $('#form-company-name').val();
-        var companyEmail = $('#form-email').val();
-        var companyNumber = $('#form-phone').val();
-
-        if(companyName == ""){
-            console.log("username cannot be blank");
+    function checkValid(valid, id) {
+        if(!valid) {
+            $(id).removeClass("error").addClass("error_show");
+            return false;
+        } else {
+            $(id).removeClass("error_show").addClass("error");
+            return true;
         }
+    }
 
-        if(validateEmail(companyEmail)){
-            console.log("please enter a valid email");
+    function validateCompany(companyData){
+        var validName = $('#form-company-name').hasClass("valid");
+        var validEmail = $('#form-email').hasClass("valid");
+        var validPhone = $('#form-phone').hasClass("valid");
+
+        if(checkValid(validName, "#company-name-error") && checkValid(validEmail, "#company-email-error") && checkValid(validPhone, "#company-phone-error")) {
+           return true;
+      }
+        else {
+           return false;
         }
-
-
-    
-
     }
 
 
