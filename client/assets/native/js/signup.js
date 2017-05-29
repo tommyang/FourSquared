@@ -3,7 +3,7 @@
  */
 $(document).ready(function(){
 var companyId;
-    $('#form-company-name').on('input', function() {
+    $('#form-company-name, #form-employee-first, #form-employee-last').on('input', function() {
         var name = $(this).val();
         if(name) {
             $(this).removeClass("invalid").addClass("valid");
@@ -12,7 +12,27 @@ var companyId;
         }
     });
     
-    $('#form-email').on('input', function() {
+    $('#form-password').on('input', function() {
+        var pass = $(this).val();
+        if(pass.length >=  6) {
+            $(this).removeClass("invalid").addClass("valid");
+        } else {
+            $(this).removeClass("valid").addClass("invalid");
+        }
+    });
+    
+    $('#form-repeat-password').on('input', function() {
+        var pass = $(this).val();
+        if($('#form-password').hasClass("valid")) {
+            if(pass === ($('#form-password').val())) {
+                $(this).removeClass("invalid").addClass("valid");
+            } else {
+                $(this).removeClass("valid").addClass("invalid");
+            }
+        }
+    });
+    
+    $('#form-email, #form-employee-email').on('input', function() {
         var email = $(this).val();
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         var validEmail = re.test(email);
@@ -23,7 +43,7 @@ var companyId;
         }
     });
 
-    $('#form-phone').on('input', function() {
+    $('#form-phone, #form-employee-phone').on('input', function() {
         var phone = $(this).val();
         var re = /^((\+\d{1,2}|1)[\s.-]?)?\(?[2-9](?!11)\d{2}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
         var validPhone = re.test(phone);
@@ -37,10 +57,19 @@ var companyId;
     //Listener for Initial Sign up of an Employee
     $('#submit-btn').on('click', function(){
         var employeeData = grabEmployeeData();
-        console.log(employeeData);
-        ajaxPost('/api/employees',employeeData);
+        var parent_fieldset = $(this).parents('fieldset');
+        if(validateEmployee()) { 
+            console.log(employeeData);
+            ajaxPost('/api/employees',employeeData);
+            parent_fieldset.fadeOut(400, function() {
+              $(this).next().fadeIn();
+            });
+        } else {
+            event.preventDefault();
+        }
     });
-//Listener for creating a company
+
+    //Listener for creating a company
     $('#submit-company-btn').on('click',function(){
         var companyData = grabCompanyData();
         var parent_fieldset = $(this).parents('fieldset');
@@ -50,12 +79,10 @@ var companyId;
             parent_fieldset.fadeOut(400, function() {
               $(this).next().fadeIn();
             });
-
-
         } else {
             event.preventDefault();
         }
-    })
+    });
 
     //Grab Company Data from form
     function grabCompanyData(){
@@ -119,7 +146,45 @@ var companyId;
         }
     }
 
+    function checkEmpty(currField) {
+        var field = $(currField).val();
+        if(field === "") {
+            $(currField).removeClass("valid").addClass("invalid");
+        }
+    }
+    
+    function validateEmployee(){
+        checkEmpty("#form-employee-first");
+        checkEmpty("#form-employee-last");
+        checkEmpty("#form-employee-email");
+        checkEmpty("#form-employee-phone");
+        checkEmpty("#form-password");
+        checkEmpty("#form-repeat-password");
+
+        var validFName = $('#form-employee-first').hasClass("valid");
+        var validLName = $('#form-employee-last').hasClass("valid");
+        var validEmail = $('#form-employee-email').hasClass("valid");
+        var validPhone = $('#form-employee-phone').hasClass("valid");
+        var validPass  = $('#form-password').hasClass("valid");
+        var validRPass = $('#form-repeat-password').hasClass("valid");
+
+
+        var checkFName = checkValid(validFName, "#employee-fname-error");
+        var checkLName = checkValid(validLName, "#employee-lname-error");
+        var checkEmail = checkValid(validEmail, "#employee-email-error");
+        var checkPhone = checkValid(validPhone, "#employee-phone-error");
+        var checkPass = checkValid(validPass, "#employee-password-error");
+        var checkRPass = checkValid(validRPass, "#employee-rpassword-error");
+
+        return checkFName && checkLName && checkEmail && checkPhone &&
+            checkPass && checkRPass;
+    }
+
     function validateCompany(){
+        checkEmpty("#form-company-name");
+        checkEmpty("#form-email");
+        checkEmpty("#form-phone");
+
         var validName = $('#form-company-name').hasClass("valid");
         var validEmail = $('#form-email').hasClass("valid");
         var validPhone = $('#form-phone').hasClass("valid");
@@ -128,20 +193,10 @@ var companyId;
         var checkEmail = checkValid(validEmail, "#company-email-error");
         var checkPhone = checkValid(validPhone, "#company-phone-error");
 
-        if(checkName && checkEmail && checkPhone) {
-           return true;
-        }
-        else {
-           return false;
-        }
+        return checkName && checkEmail && checkPhone;
     }
 
 
-
-    function validateEmail(email) {
-        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(email);
-    }
 
     function checkPassword(form){
 
@@ -187,11 +242,7 @@ var companyId;
           password.focus();
           return false;
         }
-        console.log("You entered a valid password: " + password.value);
         return true;
-    }
-    function validateForm(){
-
     }
 
 
