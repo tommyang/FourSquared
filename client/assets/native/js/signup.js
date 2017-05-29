@@ -40,14 +40,18 @@ var companyId;
         console.log(employeeData);
         ajaxPost('/api/employees',employeeData);
     });
-
-    //Listener for creating a company
+//Listener for creating a company
     $('#submit-company-btn').on('click',function(){
         var companyData = grabCompanyData();
-        if(validateCompany(companyData)) { 
-        console.log(validateCompany(companyData));
+        var parent_fieldset = $(this).parents('fieldset');
+        if(validateCompany()) { 
             console.log(companyData);
             ajaxPost('/api/companies',companyData);
+            parent_fieldset.fadeOut(400, function() {
+              $(this).next().fadeIn();
+            });
+
+
         } else {
             event.preventDefault();
         }
@@ -115,14 +119,18 @@ var companyId;
         }
     }
 
-    function validateCompany(companyData){
+    function validateCompany(){
         var validName = $('#form-company-name').hasClass("valid");
         var validEmail = $('#form-email').hasClass("valid");
         var validPhone = $('#form-phone').hasClass("valid");
 
-        if(checkValid(validName, "#company-name-error") && checkValid(validEmail, "#company-email-error") && checkValid(validPhone, "#company-phone-error")) {
+        var checkName = checkValid(validName, "#company-name-error");
+        var checkEmail = checkValid(validEmail, "#company-email-error");
+        var checkPhone = checkValid(validPhone, "#company-phone-error");
+
+        if(checkName && checkEmail && checkPhone) {
            return true;
-      }
+        }
         else {
            return false;
         }
