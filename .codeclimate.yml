@@ -12,6 +12,8 @@ engines:
     checks:
       complexity:
         enabled: false
+      max-statements:
+        enabled: false
   fixme:
     enabled: true
 ratings:
@@ -26,5 +28,13 @@ ratings:
   - "**.rb"
 exclude_paths:
 - test/
-- public/javascript/Documentation/
+- public/fonts
+- public/images
+- public/plugins
+- public/stylesheets
+- client/bower_components
+- dist/bower_components
+- dist/js
+- dist/min
 - docs/
+- apidoc/
