@@ -61,7 +61,7 @@ $(document).ready(function() {
             form[field] = str;
             field = field + 1;
         });
-        return field;
+        return form;
     }
 
 });
