@@ -56,11 +56,9 @@ hr{
 	margin-top: 25px;
 }
 
-.inline input,
-.inline label {
+label {
+    width:200px;
     display: inline-block;
-    vertical-align: middle;
-    margin-bottom: 0;
 }
 
 h1{

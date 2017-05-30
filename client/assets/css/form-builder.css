@@ -1,13 +1,12 @@
 #optional_label.form-control{
-
 }
 
 .form-control{
 	display: inline;
 }
 
+/*
 #box0, #box1{
-	/*width: 80%;*/
 	outline: none !important;
 	border: none !important;
 	padding: 6px;
@@ -16,8 +15,9 @@
 	width: 60%;
 
 }
-
+*/
 .remove-box{
+    float:right;
 	margin-left: 20px;
 }
 
@@ -36,38 +36,6 @@ hr{
 	margin: 25px auto;
 }
 
-.remove-box{
-
-}
-/*
-.form-group{
-	width: 50%;
-	max-width: 400px;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-
-.my-form input{
-	width: 60%;
-}
-.add-form-text{
-	width: 50%;
-	max-width: 400px;
-	margin: 25px auto;
-
-}
-
-.add-fields{
-	width: 50%;
-	max-width: 400px;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-.save-form{
-	margin-top: 25px;
-}*/
 .form-group{
 	width: 100%;
 }
@@ -81,6 +49,22 @@ hr{
 
 .save-form{
 	margin-left: 15px;
+}
+
+input[type="checkbox"] {
+    vertical-align:middle;
+    width: 20px;
+    height: 20px;
+}
+
+label {
+    padding-top: 10px;
+    font-size: medium;
+}
+
+label, input {
+    vertical-align:middle;
+    display: inline-block;
 }
 
 h1.page-title{
