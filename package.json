@@ -89,6 +89,6 @@
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codeclimate-test-reporter < coverage.lcov && rm coverage.lcov",
     "//": "bower install && gulp build:prod",
     "start": "node server/app.js",
-    "test": "gulp test:server"
+    "//": "gulp test:server"
   }
 }
