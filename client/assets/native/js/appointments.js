@@ -100,7 +100,8 @@ $(document).ready(function(){
       userDate = $('#appt-date').val();
       userTime = $('#appt-time').val();
 
-      newAppt.date = jsDate(userDate,userTime);
+      // newAppt.date = jsDate(userDate,userTime);
+      newAppt.date = userDate + ' ' + userTime;
       return newAppt;
     } 
 
