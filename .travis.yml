@@ -39,6 +39,7 @@ deploy:
   script: bash scripts/deploy-travis.sh
   on:
     branch: dev
+  skip_cleanup: true
 - provider: gae
   keyfile: "/tmp/gae_keyfile.json"
   project: foobaz-164623
