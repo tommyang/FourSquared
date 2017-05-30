@@ -35,6 +35,10 @@ before_deploy:
 - openssl aes-256-cbc -k "$encryption_key" -in scripts/gae_keyfile.json.enc -out /tmp/gae_keyfile.json -d
 - chmod 600 /tmp/deploy_id_rsa
 deploy:
+- provider: script
+  script: bash scripts/deploy-travis.sh
+  on:
+    branch: dev
 - provider: gae
   keyfile: "/tmp/gae_keyfile.json"
   project: foobaz-164623
