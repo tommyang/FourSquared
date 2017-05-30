@@ -12,7 +12,7 @@ set -x
 
 # Pull latest code
 cd $APP_DIR
-git reset --hard HEAD
+rm yarn.lock
 git pull
 
 # Install dependencies
