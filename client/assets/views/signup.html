@@ -79,14 +79,17 @@
                                 <div class="form-group">
                                     <label class="sr-only" for="form-company-name">Company name</label>
                                     <input type="text" name="name" placeholder="Company Name" class="form-company-name form-control" id="form-company-name">
+                                    <span class="error" id="company-name-error"> Invalid company name </span>
                                 </div>
                                 <div class="form-group">
                                     <label class="sr-only" for="form-email">Email</label>
                                     <input type="text" name="email" placeholder="Email" class="form-email form-control" id="form-email">
+                                    <span class="error" id="company-email-error"> Invalid email </span>
                                 </div>
                                 <div class="form-group">
                                     <label class="sr-only" for="form-phone">Phone Number</label>
                                     <input type="text" name="phone_number" placeholder="Phone Number" class="form-phone form-control" id="form-phone">
+                                    <span class="error" id="company-phone-error"> Invalid phone number </span>
                                 </div>
                                 <!--<div class="form-group">
                                     <label class="sr-only" for="form-card">Phone Number</label>
@@ -98,7 +101,7 @@
                                 </div>
                                 -->
 
-                                <button id="submit-company-btn" type="button" class="btn btn-next">Next</button>
+                                <button id="submit-company-btn" type="button" class="btn">Next</button>
                             </div>
                         </fieldset>
 
@@ -113,29 +116,35 @@
                                 <div class="form-group">
                                     <label class="sr-only" for="form-employee-first">First Name</label>
                                     <input type="text" name="first" placeholder="First Name" class="first form-control" id="form-employee-first">
+                                    <span class="error" id="employee-fname-error"> Invalid first name </span>
                                 </div>
                                 <div class="form-group">
                                     <label class="sr-only" for="form-employee-last">Last Name</label>
                                     <input type="text" name="last" placeholder="Last Name" class="form-control" id="form-employee-last">
+                                    <span class="error" id="employee-lname-error"> Invalid last name </span>
                                 </div>
                                 <div class="form-group">
                                     <label class="sr-only" for="form-employee-email">Email</label>
                                     <input type="text" name="email" placeholder="Email" class="form-email form-control" id="form-employee-email">
+                                    <span class="error" id="employee-email-error"> Invalid email</span>
                                 </div>
                                 <div class="form-group">
                                     <label class="sr-only" for="form-employee-phone">Phone Number</label>
                                     <input type="text" name="phone_number" placeholder="Phone Number" class="form-phone form-control" id="form-employee-phone">
+                                    <span class="error" id="employee-phone-error"> Invalid phone number</span>
                                 </div>
                                 <div class="form-group">
                                     <label class="sr-only" for="form-password">Password</label>
                                     <input type="password" name="form-password" placeholder="Password" class="form-password form-control" id="form-password">
+                                    <span class="error" id="employee-password-error"> Password too short. </span>
                                 </div>
                                 <div class="form-group">
                                     <label class="sr-only" for="form-repeat-password">Repeat password</label>
                                     <input type="password" name="form-repeat-password" placeholder="Confirm Password"
                                            class="form-repeat-password form-control" id="form-repeat-password">
+                                    <span class="error" id="employee-rpassword-error"> Password do not match</span>
                                 </div>
-                                <button id="submit-btn" type="button" class="btn btn-next">Next</button>
+                                <button id="submit-btn" type="button" class="btn">Next</button>
                             </div>
                         </fieldset>
 

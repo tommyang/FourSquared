@@ -77,7 +77,7 @@ $(document).ready(function(){
            url: '/api/appointments/',
            success: function(response) {
                 appts.push(response);
-                console.log(response);
+                // console.log(response);
            }
       });
     }
@@ -100,7 +100,8 @@ $(document).ready(function(){
       userDate = $('#appt-date').val();
       userTime = $('#appt-time').val();
 
-      newAppt.date = jsDate(userDate,userTime);
+      // newAppt.date = jsDate(userDate,userTime);
+      newAppt.date = userDate + ' ' + userTime;
       return newAppt;
     } 
 

@@ -12,7 +12,7 @@ var router = express.Router();
  * Render out angular app.
  */
 router.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname, '../dist/visitors.html'));
+  res.sendFile(path.join(__dirname, '../../client/assets/views/index.html'));
 });
 
 module.exports = router;
