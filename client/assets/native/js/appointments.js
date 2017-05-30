@@ -77,7 +77,7 @@ $(document).ready(function(){
            url: '/api/appointments/',
            success: function(response) {
                 appts.push(response);
-                console.log(response);
+                // console.log(response);
            }
       });
     }
