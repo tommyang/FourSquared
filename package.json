@@ -87,8 +87,8 @@
     "unit": "mocha 'test/**/test-*.js'",
     "e2e": "mocha 'test/**/e2e-*.js'",
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codeclimate-test-reporter < coverage.lcov && rm coverage.lcov",
-    "//": "bower install && gulp build:prod",
+    "postinstall": "bower install && gulp build:prod",
     "start": "node server/app.js",
-    "//": "gulp test:server"
+    "test": "gulp test:server"
   }
 }
