@@ -15,7 +15,7 @@ cd $APP_DIR
 git pull
 
 # Install dependencies
-yarn install --production
+yarn install 
 
 # Restart app
 pm2 gracefulReload $RESTART_ARGS
