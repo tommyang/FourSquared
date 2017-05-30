@@ -12,7 +12,6 @@ set -x
 
 # Pull latest code
 cd $APP_DIR
-rm yarn.lock
 git pull
 
 # Install dependencies
