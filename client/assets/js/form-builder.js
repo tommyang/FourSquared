@@ -8,13 +8,14 @@ $(document).ready(function($){
             alert('Max number of fields that can be added is 2');
             return false;
         }
-        var box_html = $('<p class="text-box"><label id = "added_label" for="optional_' + n + '"> <span class="box-number">' + label + '</span></label><br> <input type="text" name="boxes[]" value="" placeholder = "Enter here" id="box' + n + '" required/> <button type="button" class="btn btn-danger remove-box">Remove</button></p>');
+        var box_html = $('<div class="form-group"><input type="checkbox" class="form-control" name="boxes[]" id="box'+n+'"/> <label id = "added_label" for="box'+n+'">' + label + '</label> <button type="button" class="btn btn-danger remove-box">Remove</button></div>');
         box_html.hide();
         $('.my-form:first .addField:last').before(box_html);
         box_html.fadeIn('slow');
         $('#optional_label').val("");
         return false;
     });
+
 });
 
 $('.my-form').on('click', '.remove-box', function(){
