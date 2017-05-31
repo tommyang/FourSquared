@@ -61,6 +61,9 @@ $(document).ready(function() {
             form[field] = {label, checked};;
             field = field + 1;
         });
+
+        form.color = $('#colorpicker').val();
+        console.log("Color" + form.color);
         return form;
     }
 
