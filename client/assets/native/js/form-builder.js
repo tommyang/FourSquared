@@ -58,7 +58,7 @@ $(document).ready(function() {
                 str = "false_" + label;
 
             console.log(str);
-            form[field] = str;
+            form[field] = {label, checked};;
             field = field + 1;
         });
         return form;
