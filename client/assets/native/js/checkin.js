@@ -40,7 +40,7 @@ $(document).ready(function(){
              {
                 'token': localStorage.getItem("slackToken"),
                 'channel': localStorage.getItem("slackChannel"), 
-                'text': "Name: " + data['first_name'] + " " + data['last_name'] + " Phone Number: " + data['phone_number']
+                'text': "Check In: \nName: " + data['first_name'] + " " + data['last_name'] + " Phone Number: " + data['phone_number']
              },
              function(data, status){
               });
