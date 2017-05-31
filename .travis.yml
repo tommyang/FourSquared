@@ -42,6 +42,7 @@ deploy:
 - provider: gae
   keyfile: "/tmp/gae_keyfile.json"
   project: foobaz-164623
+  version: 20170418t044007
   on: master
 env:
   global:
