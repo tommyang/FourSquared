@@ -15,6 +15,8 @@ $(document).ready(function(){
       for(var i = 0, len = appts.length; i < len; i++){
         appts[i].fullDate = formatDate(appts[i].date.toString());
         appts[i].appointmentTime = formatTime(appts[i].date.toString());
+        console.log(appts[i].date.toString());
+        console.log(appts[i].fullDate.toString());
       }
       return appts;
     }
@@ -126,18 +128,15 @@ $(document).ready(function(){
     /********************* FUNCTIONS TO FORMAT JAVASCRIPT DATES ********************/
 
     function formatDate(date){
-      var d = new Date(Date.parse(date));
-      var mm = d.getMonth() + 1;
-      var yyyy = d.getFullYear();
-      var dd = d.getDate();
+      var datetime = date.split("T");
+      var date = datetime[0].split("-");
+      //var mm = d.getMonth() + 1;
+      //var yyyy = d.getFullYear();
+      //var dd = d.getDate();
+      var mm = date[1];
+      var yyyy = date[0];
+      var dd = date[2];
       //var monthArray = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug","Sep","Nov","Dec"];
-      if(dd < 10){
-        dd = '0' + dd;
-      }
-      if(mm < 10){
-        mm = '0' + mm;
-      }
-      //console.log(monthArray[mm]);
       return  mm + '/' + dd + '/' +  + yyyy;
     }
     function formatNumber(number){
@@ -204,17 +203,19 @@ $(document).ready(function(){
 
     //FUNCTION TO FORMAT TIME TO AM AND PM FOR HUMANS
     function formatTime(time){
-        var currentTime = new Date(Date.parse(time));
-        var hour = currentTime.getHours();
-        var minute = currentTime.getMinutes();
+        var datetime = time.split("T");
+        var time = datetime[1].split(":");
 
-        if(minute < 10) {
-            minute = '0' + minute;
-        }
+        //var currentTime = new Date(Date.parse(time));
+        //var hour = currentTime.getHours();
+        //var minute = currentTime.getMinutes();
+
+        var hour = time[0];
+        var minute = time[1];
 
         if(hour >= 13){
             hour = hour-12;
-            currentTime = hour + ':' + minute + 'PM';
+            currentTime = "0" + hour + ':' + minute + 'PM';
         }
 
         else if(hour === 12){
