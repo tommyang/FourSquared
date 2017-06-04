@@ -2,6 +2,19 @@
     font-size: 18px;
 }
 
+.error {
+    display: none;
+    margin-left: 10px;
+}
+
+.error_show {
+    border-radius:25px;
+    padding:10px;
+    margin-left: 15px;
+    color: black;
+    background: #ff9999;
+}
+
 hr{
    border-top: 3px solid #01b2bd !important;
 }

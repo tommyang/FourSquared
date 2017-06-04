@@ -28,6 +28,7 @@ $(document).ready(function(){
 
     $("#appt-list").html(compiledHtml);
     $('.save-btn').click(submitForm);
+    $('#close-btn').click(closeForm);
     
    /***
      * Makes a get request to display list of appts
@@ -45,9 +46,16 @@ $(document).ready(function(){
            success: function(response) {
                json = response;
                console.log(response);
-           }
+           },
+
        });
        return json;
+   }
+
+   function closeForm() {
+        $("#save-error").removeClass("error_show").addClass("error");
+        $("#myModal").modal('hide');
+        document.getElementById("appt-form").reset();
    }
 
    /***
@@ -62,7 +70,19 @@ $(document).ready(function(){
         appts = getAppts();
         appts = initializeAppts(appts);
         $("#appt-list").html(template(appts));
-        document.getElementById("appt-form").reset();
+    }
+
+    function checkErrors(stat) {
+    console.log(stat);
+        if(stat === 400) {
+            console.log("Already created");
+            $("#save-error").html("Appointment already created.");
+            $("#save-error").removeClass("error").addClass("error_show");
+        } else if(stat === 404) {
+            console.log("Error saving");
+            $("#save-error").html("Error saving appointment.");
+            $("#save-error").removeClass("error").addClass("error_show");
+        }
     }
 
     /***
@@ -79,7 +99,15 @@ $(document).ready(function(){
            url: '/api/appointments/',
            success: function(response) {
                 appts.push(response);
+                $("#save-error").removeClass("error_show").addClass("error");
+                $("#myModal").modal('hide');
+                document.getElementById("appt-form").reset();
                 // console.log(response);
+           },
+           error: function(response) {
+                var resJSON = JSON.stringify(response);
+                console.log(jQuery.parseJSON(resJSON).status);
+                checkErrors(jQuery.parseJSON(resJSON).status);
            }
       });
     }
