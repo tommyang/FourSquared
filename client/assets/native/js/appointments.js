@@ -146,35 +146,24 @@ $(document).ready(function(){
       var className = $(this).closest('i').attr('class');
       var currentTD = $(this).parents('tr').find('td');
 
-      $(this).closest('i').toggleClass(editIconName + ' ' + saveIconName);
-
       if (className.includes(editIconName)) {
         $(this).parents('tr').removeClass('appt-row').addClass('appt-row-active');
+        $(this).closest('i').removeClass(editIconName).addClass(saveIconName);
 
         $.each(currentTD, function (i) {
-          if (i != 0 && i != 7) {
+          if (i > 0 && i < 7) {
             $(this).prop('contenteditable', true);
           }
         });
       } else if (className.includes(saveIconName)) {
-        $(this).parents('tr').removeClass('appt-row-active').addClass('appt-row');
-
-        $.each(currentTD, function (i) {
-          if (i != 0 && i != 7) {
-            $(this).prop('contenteditable', false);
-          }
-        });
-
         var newAppt = {};
         var userTime, userDate;
-        newAppt.company_id = myCompanyId;
         var apptId = $(this).closest('.appt-row').attr('value');
 
         $.each(currentTD, function (i) {
-          if (i != 0 && i != 7) {
+          if (i > 0 && i < 7) {
             if (i < 5) {
-              var tableHeader = $(this).attr('class');
-              newAppt[tableHeader] = $(this).html();
+              newAppt[$(this).attr('class')] = $(this).html();
             } else if (i == 5) {
               userDate = $(this).html();
             } else if (i == 6) {
@@ -184,8 +173,22 @@ $(document).ready(function(){
         });
 
         newAppt.date = userDate + ' ' + userTime;
+        newAppt.company_id = myCompanyId;
 
-        updateAppt(apptId, newAppt);
+        var errStr = validateAppt(newAppt);
+
+        if (errStr == '') {
+          $.each(currentTD, function (i) {
+            if (i > 0 && i < 7) {
+              $(this).prop('contenteditable', false);
+            }
+          });
+          $(this).closest('i').removeClass(saveIconName).addClass(editIconName);
+          $(this).parents('tr').removeClass('appt-row-active').addClass('appt-row');
+          updateAppt(apptId, newAppt);
+        } else {
+          alert(errStr);
+        }
       }
     });
 
@@ -197,6 +200,67 @@ $(document).ready(function(){
         async: true,
         url:'/api/appointments/' + apptId
       });
+    }
+
+    function validateName(nameStr) {
+      var re = /^[a-z ,.'-]+$/i;
+      return re.test(nameStr);
+    } 
+
+    function validatePhoneNumber(pnStr) {
+      var re = /^\d{10}$/;
+      return re.test(pnStr);
+    }
+
+    function validateDate(dateStr) {
+      var d = new Date(dateStr);
+      return d != 'Invalid Date';
+    }
+
+    function validateAppt(apptObj) {
+      var errStr = '';
+
+      if (!validateName(apptObj.first_name)) {
+        if (errStr == '') {
+          errStr += 'Invalid first name';
+        } else {
+          errStr += ', first name';
+        }
+      }
+
+      if (!validateName(apptObj.last_name)) {
+        if (errStr == '') {
+          errStr += 'Invalid last name';
+        } else {
+          errStr += ', last name';
+        }
+      }
+
+      if (!validateName(apptObj.provider_name)) {
+        if (errStr == '') {
+          errStr += 'Invalid provider name';
+        } else {
+          errStr += ', provider name';
+        }
+      }
+
+      if (!validatePhoneNumber(apptObj.phone_number)) {
+        if (errStr == '') {
+          errStr += 'Invalid phone number';
+        } else {
+          errStr += ', phone number';
+        }
+      }
+
+      if (!validateDate(apptObj.date)) {
+        if (errStr == '') {
+          errStr += 'Invalid date or time';
+        } else {
+          errStr += ', date or time';
+        }
+      }
+
+      return errStr;
     }
 
 
