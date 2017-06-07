@@ -158,7 +158,7 @@ $(document).ready(function(){
       } else if (className.includes(saveIconName)) {
         var newAppt = {};
         var userTime, userDate;
-        var apptId = $(this).closest('.appt-row').attr('value');
+        var apptId = $(this).closest('.appt-row-active').attr('value');
 
         $.each(currentTD, function (i) {
           if (i > 0 && i < 7) {
