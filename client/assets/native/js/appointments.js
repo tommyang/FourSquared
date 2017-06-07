@@ -142,7 +142,21 @@ $(document).ready(function(){
     });
 
     $(document).on('click','.edit-appt',function(){
-      alert("IN PROCESS OF IMPLEMENTING RN - hung");
+      $(this).closest('i').toggleClass('fa-pencil-square-o fa-floppy-o');
+      // $('.edit-appt').toggleClass("fa-pencil-square-o fa-floppy-io");
+      var currentTD = $(this).parents('tr').find('td');
+          // if ($(this).html() == 'Edit') {                  
+              // $.each(currentTD, function () {
+              //     $(this).prop('contenteditable', true)
+              // });
+
+          // } else {
+          //    $.each(currentTD, function () {
+          //         $(this).prop('contenteditable', false)
+          //     });
+          // }
+
+          // $(this).html($(this).html() == 'Edit' ? 'Save' : 'Edit') 
     });
 
 
