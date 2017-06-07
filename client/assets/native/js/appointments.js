@@ -135,29 +135,69 @@ $(document).ready(function(){
           var updateAppts = getAppts();
           var removeAppt = initializeAppts(updateAppts);
           $("#appt-list").html(template(removeAppt));
-
         }
       });
 
     });
 
     $(document).on('click','.edit-appt',function(){
-      $(this).closest('i').toggleClass('fa-pencil-square-o fa-floppy-o');
-      // $('.edit-appt').toggleClass("fa-pencil-square-o fa-floppy-io");
+      var editIconName = 'fa-pencil-square-o';
+      var saveIconName = 'fa-floppy-o';
+      var className = $(this).closest('i').attr('class');
       var currentTD = $(this).parents('tr').find('td');
-          // if ($(this).html() == 'Edit') {                  
-              // $.each(currentTD, function () {
-              //     $(this).prop('contenteditable', true)
-              // });
 
-          // } else {
-          //    $.each(currentTD, function () {
-          //         $(this).prop('contenteditable', false)
-          //     });
-          // }
+      $(this).closest('i').toggleClass(editIconName + ' ' + saveIconName);
 
-          // $(this).html($(this).html() == 'Edit' ? 'Save' : 'Edit') 
+      if (className.includes(editIconName)) {
+        $(this).parents('tr').removeClass('appt-row').addClass('appt-row-active');
+
+        $.each(currentTD, function (i) {
+          if (i != 0 && i != 7) {
+            $(this).prop('contenteditable', true);
+          }
+        });
+      } else if (className.includes(saveIconName)) {
+        $(this).parents('tr').removeClass('appt-row-active').addClass('appt-row');
+
+        $.each(currentTD, function (i) {
+          if (i != 0 && i != 7) {
+            $(this).prop('contenteditable', false);
+          }
+        });
+
+        var newAppt = {};
+        var userTime, userDate;
+        newAppt.company_id = myCompanyId;
+        var apptId = $(this).closest('.appt-row').attr('value');
+
+        $.each(currentTD, function (i) {
+          if (i != 0 && i != 7) {
+            if (i < 5) {
+              var tableHeader = $(this).attr('class');
+              newAppt[tableHeader] = $(this).html();
+            } else if (i == 5) {
+              userDate = $(this).html();
+            } else if (i == 6) {
+              userTime = $(this).html();
+            }
+          }
+        });
+
+        newAppt.date = userDate + ' ' + userTime;
+
+        updateAppt(apptId, newAppt);
+      }
     });
+
+    function updateAppt(apptId, newAppt) {
+      $.ajax({
+        dataType: 'json',
+        type: 'PUT',
+        data: newAppt,
+        async: true,
+        url:'/api/appointments/' + apptId
+      });
+    }
 
 
     /********************* FUNCTIONS TO FORMAT JAVASCRIPT DATES ********************/

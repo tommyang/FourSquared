@@ -19,6 +19,10 @@ hr{
    border-top: 3px solid #01b2bd !important;
 }
 
+.appt-row-active{
+  background-color: #01b2bd;
+}
+
 .edit-appt:hover{
 	color: black;
 	cursor: pointer;
