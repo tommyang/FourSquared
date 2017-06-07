@@ -13,10 +13,8 @@ $(document).ready(function(){
         return new Date(a.date) - new Date(b.date);
       });
       for(var i = 0, len = appts.length; i < len; i++){
-        appts[i].fullDate = formatDate(appts[i].date.toString());
-        appts[i].appointmentTime = formatTime(appts[i].date.toString());
-        console.log(appts[i].date.toString());
-        console.log(appts[i].fullDate.toString());
+        appts[i].fullDate = formatDate(appts[i].date);
+        appts[i].appointmentTime = formatTime(appts[i].date);
       }
       return appts;
     }
@@ -45,7 +43,6 @@ $(document).ready(function(){
            url: '/api/appointments/company/' + myCompanyId,
            success: function(response) {
                json = response;
-               console.log(response);
            },
 
        });
@@ -65,7 +62,6 @@ $(document).ready(function(){
      */
     function submitForm(){
         var d = grabFormElements();
-        console.log(d);
         updateApptList(d);
         appts = getAppts();
         appts = initializeAppts(appts);
@@ -73,20 +69,17 @@ $(document).ready(function(){
     }
 
     function checkErrors(stat) {
-    console.log(stat);
         if(stat === 400) {
-            console.log("Already created");
             $("#save-error").html("Appointment already created.");
             $("#save-error").removeClass("error").addClass("error_show");
         } else if(stat === 404) {
-            console.log("Error saving");
             $("#save-error").html("Error saving appointment.");
             $("#save-error").removeClass("error").addClass("error_show");
         }
     }
 
     /***
-     * Makes a post request to update list of appts when adding a new employee
+     * Makes a post request to update list of appts when adding a new appointment
      * @param none
      * @returns updates the appt list
      */
@@ -102,11 +95,9 @@ $(document).ready(function(){
                 $("#save-error").removeClass("error_show").addClass("error");
                 $("#myModal").modal('hide');
                 document.getElementById("appt-form").reset();
-                // console.log(response);
            },
            error: function(response) {
                 var resJSON = JSON.stringify(response);
-                console.log(jQuery.parseJSON(resJSON).status);
                 checkErrors(jQuery.parseJSON(resJSON).status);
            }
       });
@@ -130,14 +121,12 @@ $(document).ready(function(){
       userDate = $('#appt-date').val();
       userTime = $('#appt-time').val();
 
-      // newAppt.date = jsDate(userDate,userTime);
       newAppt.date = userDate + ' ' + userTime;
       return newAppt;
     } 
 
     $(document).on('click','.delete-appt',function(){
       var apptId = $(this).closest('.appt-row').attr('value');
-      console.log("delete");
       $.ajax({
         dataType:'json',
         type: 'DELETE',
@@ -156,108 +145,54 @@ $(document).ready(function(){
     /********************* FUNCTIONS TO FORMAT JAVASCRIPT DATES ********************/
 
     function formatDate(date){
-      var datetime = date.split("T");
-      var date = datetime[0].split("-");
-      //var mm = d.getMonth() + 1;
-      //var yyyy = d.getFullYear();
-      //var dd = d.getDate();
-      var mm = date[1];
-      var yyyy = date[0];
-      var dd = date[2];
-      //var monthArray = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug","Sep","Nov","Dec"];
+      var d = new Date(date);
+      var mm = d.getMonth() + 1; // zero indexed months
+      var yyyy = d.getFullYear();
+      var dd = d.getDate();
       return  mm + '/' + dd + '/' +  + yyyy;
     }
+
     function formatNumber(number){
       return '(' + number.substr(0,3) + ')' + number.substr(3,3) + '-' + number.substr(6,4);
     }
 
-    //FUNCTION TO FORMAT DATE OBJECT IN JS
-    function jsDate(date,time){
-      var jsDate = reFormatDate(date);
-      var jsTime = reFormatTime(time);
-      jsDateObj = jsDate + ' ' + jsTime;
-      return jsDateObj;
-    }
-
-    //FUNCTION TO FORMAT DATE TO JS FOR ROBOTS
-    function reFormatDate(date){
-      var d = new Date(Date.parse(date));
-      var mm = d.getMonth() + 1;
-      var yyyy = d.getFullYear();
-      var dd = d.getDate();
-
-      if(dd < 10){
-        dd = '0' + dd;
-      }
-      if(mm < 10){
-        mm = '0' + mm;
-      }
-      return  yyyy + '-' + mm +'-' + dd;
-    }
-
-
-    //FUNCTION TO FORMAT TIME TO JS FOR ROBOTS
-    function reFormatTime(time){
-      var ampm = time.substr(-2,2);
-      var formattedTime;
-      var formattedHour;
-      var colon = time.indexOf(":");
-
-      if(ampm === "PM"){
-        formattedHour = time.substr(0,2);
-
-        if(formattedHour == '12')
-          formattedHour = 12;  
-        else
-          formattedHour = 12 + parseInt(time.substr(0,2));
-
-        formattedTime = formattedHour + time.substr(colon,3) + ":00";
-      }
-      else{
-
-        formattedHour = parseInt(time.substr(0,2));
-        if(formattedHour < 10){
-          formattedHour = '0' + formattedHour;
-        }
-        if(formattedHour == 12){
-          formattedHour = '00';
-        }
-        formattedTime = formattedHour + time.substr(colon,3) + ':00';
-      }
-
-      return formattedTime;
-    }
-
-
     //FUNCTION TO FORMAT TIME TO AM AND PM FOR HUMANS
     function formatTime(time){
-        var datetime = time.split("T");
-        var time = datetime[1].split(":");
+        var d = new Date(time); 
 
-        //var currentTime = new Date(Date.parse(time));
-        //var hour = currentTime.getHours();
-        //var minute = currentTime.getMinutes();
+        var hour = d.getHours();
+        var minute = d.getMinutes();
+        var pm = false;
 
-        var hour = time[0];
-        var minute = time[1];
+        var hourString, minString, timeString;
 
-        if(hour >= 13){
-            hour = hour-12;
-            currentTime = "0" + hour + ':' + minute + 'PM';
+        if (hour >= 12) {
+          pm = true;
         }
 
-        else if(hour === 12){
-            currentTime = hour + ':' + minute +'PM';
+        if (hour >= 13) {
+          hour -= 12;
         }
-        else if(hour === 0){
-            currentTime = 1 + ':' + minute + 'AM';
+
+        if (hour < 10) {
+          hourString = '0' + hour;
+        } else {
+          hourString = hour.toString();
         }
-        else{
-            currentTime = hour + ':' + minute +'AM';
+
+        if (minute < 10) {
+          minString = '0' + minute;
+        } else {
+          minString = minute.toString();
+        }
+
+        if (pm) {
+          currentTime = hourString + ':' + minString + ' PM';
+        } else {
+          currentTime = hourString + ':' + minString + ' AM';
         }
 
         return currentTime;
-
     }
 
 });
