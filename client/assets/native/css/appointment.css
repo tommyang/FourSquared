@@ -18,13 +18,21 @@
 hr{
    border-top: 3px solid #01b2bd !important;
 }
+
+.edit-appt:hover{
+	color: black;
+	cursor: pointer;
+}
+
 .delete-appt{
    margin-left: 15px;
 }
+
 .delete-appt:hover{
-	color: red;
-	cursor:pointer;
+  color: red;
+  cursor: pointer;
 }
+
 .appt-container{
 	max-width: 980px;
 }

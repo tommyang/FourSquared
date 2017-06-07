@@ -154,12 +154,14 @@
 				<table class="table">
 					<thead>
 					<tr>
+						<th></th>
 						<th>First Name</th>
 						<th>Last Name</th>
 						<th>Provider Name</th>
 						<th>Phone Number</th>
 						<th>Date</th>
 						<th>Time</th>
+						<th>Delete</th>
 					</tr>
 					</thead>
 
@@ -270,14 +272,14 @@
 		<script type = "text/x-handlebars-template" id = "appt-list-template">
 			{{#each []}}
 			<tr class="appt-row" value="{{this._id}}">
+				<td> <i class="fa fa-pencil-square-o edit-appt"></i> </td>
 				<td class="appt-data">{{this.first_name}}</td>
 				<td class="appt-data">{{this.last_name}}</td>
 				<td class="appt-data">{{this.provider_name}}</td>
 				<td class="appt-data">{{this.phone_number}}</td>
 				<td class="appt-data">{{this.fullDate}}</td>
-				<td class="appt-data">{{this.appointmentTime}}
-					<i class="fa fa-trash-o delete-appt"></i>
-				</td>
+				<td class="appt-data">{{this.appointmentTime}} </td>
+				<td> <i class="fa fa-trash-o delete-appt"></i> </td>
 			</tr>
 			{{/each}}
 		</script>

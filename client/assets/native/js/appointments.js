@@ -141,6 +141,10 @@ $(document).ready(function(){
 
     });
 
+    $(document).on('click','.edit-appt',function(){
+      alert("IN PROCESS OF IMPLEMENTING RN - hung");
+    });
+
 
     /********************* FUNCTIONS TO FORMAT JAVASCRIPT DATES ********************/
 
