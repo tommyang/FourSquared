@@ -22,7 +22,7 @@ describe('Sign Up Page', function(){
 
     describe('Step 1', function() {
         it('should have the correct title', function(done) {
-            // driver.getTitle().should.eventually.equal('Emissary | Sign Up').notify(done);
+             driver.getTitle().should.eventually.equal('Emissary | Sign Up').notify(done);
         });
 
         it('should have the company name input field', function(done) {
