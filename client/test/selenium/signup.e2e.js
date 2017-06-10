@@ -52,7 +52,7 @@ describe('Sign Up Page', function(){
         });
 
         it('should have the correct title', function(done) {
-            // driver.getTitle().should.eventually.equal('Emissary | Sign Up').notify(done);
+             driver.getTitle().should.eventually.equal('Emissary | Sign Up').notify(done);
         });
 
         it('should have the first name input field', function(done) {
