@@ -134,6 +134,13 @@ app.get('/admin-settings', function(req,res){
 app.get('/index', function(req,res){
   res.sendFile(path.join(__dirname,'../client/assets/views/index.html'))
 });   
+
+app.get('/fbwebhook/', function(req, res) {
+    if (req.query['hub.verify_token'] === 'lolpassword') {
+         res.send(req.query['hub.challenge'])
+    } else 
+        res.send('Error, wrong token')
+});
 /*
  * Error Handler.
  */
