@@ -19,7 +19,16 @@ var MY_SLACK_WEBHOOK_URL ='https://hooks.slack.com/services/T4Z8L4M0E/B5M2QFH39/
 var slack = require('slack-notify')(MY_SLACK_WEBHOOK_URL);
 //var oauthserver = require('oauth2-server');
 var newrelic = require('newrelic');
+// Load the twilio module
+var twilio = require('twilio');
 
+// Twilio Credentials 
+var accountSid = 'ACb70bc33c96bfc11985cbd1cf76a239ef'; 
+var authToken = '452f1f1d86c183097a96db390ca55590'; 
+ 
+//require the Twilio module and create a REST client 
+var client = require('twilio')(accountSid, authToken); 
+var exports = module.exports;
 
 /*
  * App configs
@@ -67,6 +76,39 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function callback () {
     console.log("Connected to mongolab");
+});
+
+var Appointment = require('./models/Appointment');
+//Get todays date
+var date =new Date();
+//Get tomorrow's date by adding 24 hours onto today's date
+var tomorrow = new Date(date.getTime() + 24 * 60 * 60 * 1000);
+
+var schedule = require('node-schedule');
+
+//At a certain time everyday execute the function to get all the next day's appointments
+var j = schedule.scheduleJob('58 * * * *', function(){//Execute on the 57th minute of each hour
+ 
+  var cursor=Appointment.find().cursor();
+  cursor.on('data',function(doc){
+	  if(doc.date.getFullYear()==tomorrow.getFullYear() && 
+			doc.date.getMonth()==tomorrow.getMonth() &&
+			doc.date.getDate()==tomorrow.getDate()){
+				console.log(doc);//Print out all appointments for tomorrow
+				//Add code here for sending reminder texts
+				client.messages.create({ 
+					to: doc.phone_number, 
+					from: "+16266711727", 
+					body: "This is the ship that made the Kessel Run in fourteen parsecs?", 
+				}, function(err, message) { 
+					console.log(message.sid); 
+				});
+			}
+ });
+  
+  cursor.on('close',function(){
+	  console.log('Finished');
+  });
 });
 
 /*
