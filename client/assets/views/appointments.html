@@ -28,7 +28,7 @@
 
 	<script src="assets/js/jquery-1.11.3.min.js"></script>
 	<script src="assets/js/js.cookie.js"></script>
-    <script src="assets/native/js/auth-cookies.js"></script>
+    <!-- <script src="assets/native/js/auth-cookies.js"></script> -->
 
 	<!--[if lt IE 9]><script src="assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 
@@ -129,7 +129,7 @@
 			</div>
 
 			<!-- Raw Links -->
-			<div class="col-md-6 col-sm-4 clearfix hidden-xs">
+			<div class="col-md-6 col-sm-4 clearfix">
 				<ul class="list-inline links-list pull-right">
 					<div class="dropdown">
                         <i class="fa fa-3x fa-cog dropdown-toggle" data-toggle="dropdown"></i>
@@ -154,12 +154,14 @@
 				<table class="table">
 					<thead>
 					<tr>
+						<th></th>
 						<th>First Name</th>
 						<th>Last Name</th>
 						<th>Provider Name</th>
 						<th>Phone Number</th>
 						<th>Date</th>
 						<th>Time</th>
+						<th>Delete</th>
 					</tr>
 					</thead>
 
@@ -188,8 +190,10 @@
 
 									<!-- Modal Body -->
 									<div class="modal-body">
-
 										<form class="form-horizontal" role="form" id="appt-form">
+                                        <div class="form-group">
+                                        <span class="error" id="save-error"> </span>
+                                        </div>
 											<div class="form-group">
 												<label class="col-sm-2 control-label"
 														 for="first-name" >First Name</label>
@@ -244,18 +248,15 @@
 											</div>
 
 										</form>
-
-										<p class='message-api'> To connect your appointment information to our system, please refer to our appointments api, <a href= "/assets/images/appointments.pdf" target= "_blank"> here</a></p>
-
 									</div>
 
 									<!-- Modal Footer -->
 									<div class="modal-footer">
-										<button type="button" class="btn btn-default"
-												  data-dismiss="modal">
+										<button type="button" id="close-btn" 
+                                            class="btn btn-default">
 											Close
 										</button>
-										<button type="button" class="check-in-btn btn btn-default save-btn" data-dismiss="modal">Save</button>
+										<button type="button" class="check-in-btn btn btn-default save-btn">Save</button>
 									</div>
 								</div>
 							</div>
@@ -268,14 +269,14 @@
 		<script type = "text/x-handlebars-template" id = "appt-list-template">
 			{{#each []}}
 			<tr class="appt-row" value="{{this._id}}">
-				<td class="appt-data">{{this.first_name}}</td>
-				<td class="appt-data">{{this.last_name}}</td>
-				<td class="appt-data">{{this.provider_name}}</td>
-				<td class="appt-data">{{this.phone_number}}</td>
-				<td class="appt-data">{{this.fullDate}}</td>
-				<td class="appt-data">{{this.appointmentTime}}
-					<i class="fa fa-trash-o delete-appt"></i>
-				</td>
+				<td> <i class="fa fa-pencil-square-o edit-appt"></i> </td>
+				<td class="first_name">{{this.first_name}}</td>
+				<td class="last_name">{{this.last_name}}</td>
+				<td class="provider_name">{{this.provider_name}}</td>
+				<td class="phone_number">{{this.phone_number}}</td>
+				<td class="full_date">{{this.fullDate}}</td>
+				<td class="appt_time">{{this.appointmentTime}} </td>
+				<td> <i class="fa fa-trash-o delete-appt"></i> </td>
 			</tr>
 			{{/each}}
 		</script>

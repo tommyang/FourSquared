@@ -13,8 +13,8 @@ $(document).ready(function(){
         return new Date(a.date) - new Date(b.date);
       });
       for(var i = 0, len = appts.length; i < len; i++){
-        appts[i].fullDate = formatDate(appts[i].date.toString());
-        appts[i].appointmentTime = formatTime(appts[i].date.toString());
+        appts[i].fullDate = formatDate(appts[i].date);
+        appts[i].appointmentTime = formatTime(appts[i].date);
       }
       return appts;
     }
@@ -26,6 +26,7 @@ $(document).ready(function(){
 
     $("#appt-list").html(compiledHtml);
     $('.save-btn').click(submitForm);
+    $('#close-btn').click(closeForm);
     
    /***
      * Makes a get request to display list of appts
@@ -42,10 +43,16 @@ $(document).ready(function(){
            url: '/api/appointments/company/' + myCompanyId,
            success: function(response) {
                json = response;
-               console.log(response);
-           }
+           },
+
        });
        return json;
+   }
+
+   function closeForm() {
+        $("#save-error").removeClass("error_show").addClass("error");
+        $("#myModal").modal('hide');
+        document.getElementById("appt-form").reset();
    }
 
    /***
@@ -55,16 +62,24 @@ $(document).ready(function(){
      */
     function submitForm(){
         var d = grabFormElements();
-        console.log(d);
         updateApptList(d);
         appts = getAppts();
         appts = initializeAppts(appts);
         $("#appt-list").html(template(appts));
-        document.getElementById("appt-form").reset();
+    }
+
+    function checkErrors(stat) {
+        if(stat === 400) {
+            $("#save-error").html("Appointment already created.");
+            $("#save-error").removeClass("error").addClass("error_show");
+        } else if(stat === 404) {
+            $("#save-error").html("Error saving appointment.");
+            $("#save-error").removeClass("error").addClass("error_show");
+        }
     }
 
     /***
-     * Makes a post request to update list of appts when adding a new employee
+     * Makes a post request to update list of appts when adding a new appointment
      * @param none
      * @returns updates the appt list
      */
@@ -77,7 +92,13 @@ $(document).ready(function(){
            url: '/api/appointments/',
            success: function(response) {
                 appts.push(response);
-                // console.log(response);
+                $("#save-error").removeClass("error_show").addClass("error");
+                $("#myModal").modal('hide');
+                document.getElementById("appt-form").reset();
+           },
+           error: function(response) {
+                var resJSON = JSON.stringify(response);
+                checkErrors(jQuery.parseJSON(resJSON).status);
            }
       });
     }
@@ -100,14 +121,12 @@ $(document).ready(function(){
       userDate = $('#appt-date').val();
       userTime = $('#appt-time').val();
 
-      // newAppt.date = jsDate(userDate,userTime);
-      newAppt.date = userDate + ' ' + userTime;
+      newAppt.date = new Date(userDate + ' ' + userTime);
       return newAppt;
     } 
 
     $(document).on('click','.delete-appt',function(){
       var apptId = $(this).closest('.appt-row').attr('value');
-      console.log("delete");
       $.ajax({
         dataType:'json',
         type: 'DELETE',
@@ -116,119 +135,186 @@ $(document).ready(function(){
           var updateAppts = getAppts();
           var removeAppt = initializeAppts(updateAppts);
           $("#appt-list").html(template(removeAppt));
-
         }
       });
 
     });
 
+    $(document).on('click','.edit-appt',function(){
+      var editIconName = 'fa-pencil-square-o';
+      var saveIconName = 'fa-floppy-o';
+      var className = $(this).closest('i').attr('class');
+      var currentTD = $(this).parents('tr').find('td');
+
+      if (className.includes(editIconName)) {
+        $(this).parents('tr').removeClass('appt-row').addClass('appt-row-active');
+        $(this).closest('i').removeClass(editIconName).addClass(saveIconName);
+
+        $.each(currentTD, function (i) {
+          if (i > 0 && i < 7) {
+            $(this).prop('contenteditable', true);
+          }
+        });
+      } else if (className.includes(saveIconName)) {
+        var newAppt = {};
+        var userTime, userDate;
+        var apptId = $(this).closest('.appt-row-active').attr('value');
+
+        $.each(currentTD, function (i) {
+          if (i > 0 && i < 7) {
+            if (i < 5) {
+              newAppt[$(this).attr('class')] = $(this).html();
+            } else if (i == 5) {
+              userDate = $(this).html();
+            } else if (i == 6) {
+              userTime = $(this).html();
+            }
+          }
+        });
+
+        newAppt.date = new Date(userDate + ' ' + userTime);
+        newAppt.company_id = myCompanyId;
+
+        var errStr = validateAppt(newAppt);
+
+        if (errStr == '') {
+          $.each(currentTD, function (i) {
+            if (i > 0 && i < 7) {
+              $(this).prop('contenteditable', false);
+            }
+          });
+          $(this).closest('i').removeClass(saveIconName).addClass(editIconName);
+          $(this).parents('tr').removeClass('appt-row-active').addClass('appt-row');
+          updateAppt(apptId, newAppt);
+        } else {
+          alert(errStr);
+        }
+      }
+    });
+
+    function updateAppt(apptId, newAppt) {
+      $.ajax({
+        dataType: 'json',
+        type: 'PUT',
+        data: newAppt,
+        async: true,
+        url:'/api/appointments/' + apptId
+      });
+    }
+
+    function validateName(nameStr) {
+      var re = /^[a-z ,.'-]+$/i;
+      return re.test(nameStr);
+    } 
+
+    function validatePhoneNumber(pnStr) {
+      var re = /^\d{10}$/;
+      return re.test(pnStr);
+    }
+
+    function validateDate(dateStr) {
+      var d = new Date(dateStr);
+      return d != 'Invalid Date';
+    }
+
+    function validateAppt(apptObj) {
+      var errStr = '';
+
+      if (!validateName(apptObj.first_name)) {
+        if (errStr == '') {
+          errStr += 'Invalid first name';
+        } else {
+          errStr += ', first name';
+        }
+      }
+
+      if (!validateName(apptObj.last_name)) {
+        if (errStr == '') {
+          errStr += 'Invalid last name';
+        } else {
+          errStr += ', last name';
+        }
+      }
+
+      if (!validateName(apptObj.provider_name)) {
+        if (errStr == '') {
+          errStr += 'Invalid provider name';
+        } else {
+          errStr += ', provider name';
+        }
+      }
+
+      if (!validatePhoneNumber(apptObj.phone_number)) {
+        if (errStr == '') {
+          errStr += 'Invalid phone number';
+        } else {
+          errStr += ', phone number';
+        }
+      }
+
+      if (!validateDate(apptObj.date)) {
+        if (errStr == '') {
+          errStr += 'Invalid date or time';
+        } else {
+          errStr += ', date or time';
+        }
+      }
+
+      return errStr;
+    }
+
 
     /********************* FUNCTIONS TO FORMAT JAVASCRIPT DATES ********************/
 
     function formatDate(date){
-      var d = new Date(Date.parse(date));
-      var mm = d.getMonth() + 1;
+      var d = new Date(date);
+      var mm = d.getMonth() + 1; // zero indexed months
       var yyyy = d.getFullYear();
       var dd = d.getDate();
-      //var monthArray = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug","Sep","Nov","Dec"];
-      if(dd < 10){
-        dd = '0' + dd;
-      }
-      if(mm < 10){
-        mm = '0' + mm;
-      }
-      //console.log(monthArray[mm]);
       return  mm + '/' + dd + '/' +  + yyyy;
     }
+
     function formatNumber(number){
       return '(' + number.substr(0,3) + ')' + number.substr(3,3) + '-' + number.substr(6,4);
     }
 
-    //FUNCTION TO FORMAT DATE OBJECT IN JS
-    function jsDate(date,time){
-      var jsDate = reFormatDate(date);
-      var jsTime = reFormatTime(time);
-      jsDateObj = jsDate + ' ' + jsTime;
-      return jsDateObj;
-    }
-
-    //FUNCTION TO FORMAT DATE TO JS FOR ROBOTS
-    function reFormatDate(date){
-      var d = new Date(Date.parse(date));
-      var mm = d.getMonth() + 1;
-      var yyyy = d.getFullYear();
-      var dd = d.getDate();
-
-      if(dd < 10){
-        dd = '0' + dd;
-      }
-      if(mm < 10){
-        mm = '0' + mm;
-      }
-      return  yyyy + '-' + mm +'-' + dd;
-    }
-
-
-    //FUNCTION TO FORMAT TIME TO JS FOR ROBOTS
-    function reFormatTime(time){
-      var ampm = time.substr(-2,2);
-      var formattedTime;
-      var formattedHour;
-      var colon = time.indexOf(":");
-
-      if(ampm === "PM"){
-        formattedHour = time.substr(0,2);
-
-        if(formattedHour == '12')
-          formattedHour = 12;  
-        else
-          formattedHour = 12 + parseInt(time.substr(0,2));
-
-        formattedTime = formattedHour + time.substr(colon,3) + ":00";
-      }
-      else{
-
-        formattedHour = parseInt(time.substr(0,2));
-        if(formattedHour < 10){
-          formattedHour = '0' + formattedHour;
-        }
-        if(formattedHour == 12){
-          formattedHour = '00';
-        }
-        formattedTime = formattedHour + time.substr(colon,3) + ':00';
-      }
-
-      return formattedTime;
-    }
-
-
     //FUNCTION TO FORMAT TIME TO AM AND PM FOR HUMANS
     function formatTime(time){
-        var currentTime = new Date(Date.parse(time));
-        var hour = currentTime.getHours();
-        var minute = currentTime.getMinutes();
+        var d = new Date(time); 
 
-        if(minute < 10) {
-            minute = '0' + minute;
+        var hour = d.getHours();
+        var minute = d.getMinutes();
+        var pm = false;
+
+        var hourString, minString, timeString;
+
+        if (hour >= 12) {
+          pm = true;
         }
 
-        if(hour >= 13){
-            hour = hour-12;
-            currentTime = hour + ':' + minute + 'PM';
+        if (hour >= 13) {
+          hour -= 12;
         }
 
-        else if(hour === 12){
-            currentTime = hour + ':' + minute +'PM';
+        if (hour < 10) {
+          hourString = '0' + hour;
+        } else {
+          hourString = hour.toString();
         }
-        else if(hour === 0){
-            currentTime = 1 + ':' + minute + 'AM';
+
+        if (minute < 10) {
+          minString = '0' + minute;
+        } else {
+          minString = minute.toString();
         }
-        else{
-            currentTime = hour + ':' + minute +'AM';
+
+        if (pm) {
+          currentTime = hourString + ':' + minString + ' PM';
+        } else {
+          currentTime = hourString + ':' + minString + ' AM';
         }
 
         return currentTime;
-
     }
 
 });

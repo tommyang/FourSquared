@@ -5,6 +5,8 @@ $(document).ready(function(){
 var companyId;
     $('#form-company-name, #form-employee-first, #form-employee-last').on('input', function() {
         var name = $(this).val();
+        if($(this).siblings('span').hasClass("error_show")) 
+            $(this).siblings('span').removeClass("error_show").addClass("error");
         if(name) {
             $(this).removeClass("invalid").addClass("valid");
         } else {
@@ -13,6 +15,8 @@ var companyId;
     });
     
     $('#form-password').on('input', function() {
+        if($(this).siblings('span').hasClass("error_show")) 
+            $(this).siblings('span').removeClass("error_show").addClass("error");
         var pass = $(this).val();
         if(pass.length >=  6) {
             $(this).removeClass("invalid").addClass("valid");
@@ -22,6 +26,8 @@ var companyId;
     });
     
     $('#form-repeat-password').on('input', function() {
+        if($(this).siblings('span').hasClass("error_show"))
+            $(this).siblings('span').removeClass("error_show").addClass("error");
         var pass = $(this).val();
         if($('#form-password').hasClass("valid")) {
             if(pass === ($('#form-password').val())) {
@@ -33,6 +39,8 @@ var companyId;
     });
     
     $('#form-email, #form-employee-email').on('input', function() {
+        if($(this).siblings('span').hasClass("error_show"))
+            $(this).siblings('span').removeClass("error_show").addClass("error");
         var email = $(this).val();
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         var validEmail = re.test(email);
@@ -44,6 +52,8 @@ var companyId;
     });
 
     $('#form-phone, #form-employee-phone').on('input', function() {
+        if($(this).siblings('span').hasClass("error_show"))
+            $(this).siblings('span').removeClass("error_show").addClass("error");
         var phone = $(this).val();
         var re = /^((\+\d{1,2}|1)[\s.-]?)?\(?[2-9](?!11)\d{2}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
         var validPhone = re.test(phone);
@@ -60,7 +70,7 @@ var companyId;
         var parent_fieldset = $(this).parents('fieldset');
         if(validateEmployee()) { 
             console.log(employeeData);
-            ajaxPost('/api/employees',employeeData);
+            ajaxPost('/api/employees', employeeData);
             parent_fieldset.fadeOut(400, function() {
               $(this).next().fadeIn();
             });

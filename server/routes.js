@@ -14,4 +14,5 @@ module.exports = function(app) {
     app.use('/api/companies'    , r('./routes/company'));
     app.use('/api/appointments' , r('./routes/appointment'));
     app.use('/payment'          , r('./routes/payment'));
+    app.use('/api/form-builder' , r('./routes/formBuilder'));
 };

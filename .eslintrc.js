@@ -4,7 +4,6 @@ module.exports = {
         "jquery": true,
         "node": true
     },
-    "extends": "eslint:recommended",
     "rules": {
         "indent": [
             1,

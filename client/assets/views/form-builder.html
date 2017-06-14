@@ -134,7 +134,7 @@
 
 
 			<!-- Raw Links -->
-			<div class="col-md-6 col-sm-4 clearfix hidden-xs">
+			<div class="col-md-6 col-sm-4 clearfix">
 
 				<ul class="list-inline links-list pull-right">
 					<div class="dropdown">
@@ -158,22 +158,22 @@
 		<center>
 		  <h1>Build your form</h1>
           <h2>Color picker:</h2> 
-           <div>Color: <input class="jscolor" value="1C7F79"> </div>
+           <div>Color: <input id="colorpicker" class="jscolor" value="1C7F79"> </div>
          
         </center>
 		<!--<center><h3>Preview</h3></center>-->
-<form class = "form-builder" role = "form">
-   <div class = "inline">
-      <label for = "f_name">First Name</label>
-      <input type = "checkbox" class = "form-control" id = "f_name">
+<form class = "form-builder" id="myform" role = "form">
+   <div class="form-group">
+        <input type="checkbox" class="form-control" id="f_Name">
+        <label for="f_Name">First Name</label>
    </div>
-   <div class = "inline">
-      <label for = "l_name">Last Name</label>
-      <input type = "checkbox" class = "form-control" id = "l_name">
+   <div class="form-group">
+        <input type="checkbox" class="form-control" id="l_Name">
+        <label for="l_Name">Last Name</label>
    </div>
-   <div class = "inline">
-      <label for = "phone">Phone Number</label>
+   <div class = "form-group">
       <input type = "checkbox" class = "form-control" id = "phone">
+      <label for = "phone">Phone Number</label>
    </div>
     <div class = "form-group">
 		<div class="my-form">
@@ -219,6 +219,7 @@
 		<script src="assets/js/fullcalendar/fullcalendar.min.js"></script>
 		<script src="assets/js/neon-chat.js"></script>
 		<script src="assets/js/form-builder.js"></script>
+		<script src="assets/native/js/form-builder.js"></script>
 
 
 		<!-- JavaScripts initializations and stuff -->
@@ -229,7 +230,7 @@
 		<script src="assets/js/neon-demo.js"></script>
 
 		<script src="assets/js/socket.io.js"></script>
-		<script type = "text/javascript" src= "js/handlebars-v4.0.5.js"></script>
+		<script type = "text/javascript" src= "./assets/js/handlebars-v4.0.5.js"></script>
 		<script type ="text/javascript" src="assets/native/js/login.js"></script>
 		<script type ="text/javascript" src = "assets/native/js/appointments.js"> </script>
 
