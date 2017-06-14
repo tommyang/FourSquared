@@ -37,6 +37,7 @@ module.exports.template.create = function(req, res) {
         if(err) {
             return res.status(400).json({error: "Could Not Save"});
         }
+        console.log(c);
         return res.status(200).json(showTheme(c));
     });
 };
@@ -45,7 +46,7 @@ module.exports.template.get = function(req, res) {
     FormBuilder.find({company_id: req.params.id}, function(err, company) {
         if(err || !company.length)
             return res.status(400).json({error: "Not Found"});
-        return res.status(200).json(showTheme(company));
+        return res.status(200).json(showTheme(company[0]));
     });
 };
 

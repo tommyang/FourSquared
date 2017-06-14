@@ -21,11 +21,14 @@ $(document).ready(function() {
             url: '/api/form-builder/' + myCompanyId,
             success: function(response) {
                 json = response;
+                
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 ajaxPost('/api/form-builder', getDefaultTheme(myCompanyId));
             }
         });
+        console.log(json);
+        return json;
     }
 
     function updateForm(obj) {

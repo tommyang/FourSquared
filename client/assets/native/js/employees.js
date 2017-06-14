@@ -2,8 +2,6 @@ $(document).ready(function(){
     var companyData = JSON.parse(localStorage.getItem("currentCompany"));
     var myCompanyId = companyData._id;
 
-    console.log(myCompanyId);
-
     var curUser = JSON.parse(localStorage.getItem('currentUser'));
     $('#user-name').text(curUser.first_name + ' ' +  curUser.last_name);
 
@@ -32,7 +30,6 @@ $(document).ready(function(){
            url: '/api/employees/company/' + myCompanyId,
            success: function(response) {
                json = response;
-               //console.log(response);
            }
        });
        return json;
@@ -52,7 +49,6 @@ $(document).ready(function(){
            url: '/api/employees',
            success: function(response) {
                employees.push(response);
-               //console.log(response);
            }
       });
     }
@@ -64,7 +60,6 @@ $(document).ready(function(){
      */
     function submitForm(){
         var d = grabFormElements();
-        console.log(d);
         updateEmployeeList(d);
         $("#employee-list").html(template(employees));
         document.getElementById("employee-form").reset();
