@@ -45,3 +45,14 @@ exports.sendText = function(patientName, employees, done) {
     }, callback(index));
   }
 };
+
+exports.sendReminderText = function(phoneNumber) {
+	console.log(phoneNumber);
+  client.messages.create({ 
+    to: phoneNumber, 
+    from: "+16266711727", 
+    body: "This is the ship that made the Kessel Run in fourteen parsecs?", 
+}, function(err, message) { 
+    console.log(message.sid); 
+});
+};

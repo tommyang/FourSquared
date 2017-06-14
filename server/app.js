@@ -19,6 +19,7 @@ var MY_SLACK_WEBHOOK_URL ='https://hooks.slack.com/services/T4Z8L4M0E/B5M2QFH39/
 var slack = require('slack-notify')(MY_SLACK_WEBHOOK_URL);
 //var oauthserver = require('oauth2-server');
 var newrelic = require('newrelic');
+/*'use strict';
 // Load the twilio module
 var twilio = require('twilio');
 
@@ -28,8 +29,8 @@ var authToken = '452f1f1d86c183097a96db390ca55590';
  
 //require the Twilio module and create a REST client 
 var client = require('twilio')(accountSid, authToken); 
-var exports = module.exports;
-
+var exports = module.exports;*/
+var twilio= require('./notification/text');
 /*
  * App configs
  */
@@ -87,7 +88,7 @@ var tomorrow = new Date(date.getTime() + 24 * 60 * 60 * 1000);
 var schedule = require('node-schedule');
 
 //At a certain time everyday execute the function to get all the next day's appointments
-var j = schedule.scheduleJob('58 * * * *', function(){//Execute on the 57th minute of each hour
+var j = schedule.scheduleJob('19 * * * *', function(){//Execute on the 57th minute of each hour
  
   var cursor=Appointment.find().cursor();
   cursor.on('data',function(doc){
@@ -96,13 +97,7 @@ var j = schedule.scheduleJob('58 * * * *', function(){//Execute on the 57th minu
 			doc.date.getDate()==tomorrow.getDate()){
 				console.log(doc);//Print out all appointments for tomorrow
 				//Add code here for sending reminder texts
-				client.messages.create({ 
-					to: doc.phone_number, 
-					from: "+16266711727", 
-					body: "This is the ship that made the Kessel Run in fourteen parsecs?", 
-				}, function(err, message) { 
-					console.log(message.sid); 
-				});
+				twilio.sendReminderText(doc.phone_number);
 			}
  });
   
