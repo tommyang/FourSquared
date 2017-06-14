@@ -40,6 +40,7 @@ deploy:
   on:
     branch: dev
 - provider: heroku
+  app: foursquared
   api_key: 736a13ec-6461-4927-8c8f-7ecc47512459
   on:
     branch: master
