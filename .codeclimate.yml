@@ -19,13 +19,7 @@ engines:
 ratings:
   paths:
   - "**.css"
-  - "**.inc"
   - "**.js"
-  - "**.jsx"
-  - "**.module"
-  - "**.php"
-  - "**.py"
-  - "**.rb"
 exclude_paths:
 - test/
 - public/fonts
@@ -33,8 +27,6 @@ exclude_paths:
 - public/plugins
 - public/stylesheets
 - client/bower_components
-- dist/bower_components
-- dist/js
-- dist/min
+- dist/
 - docs/
 - apidoc/
