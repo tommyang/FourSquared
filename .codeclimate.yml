@@ -30,3 +30,4 @@ exclude_paths:
 - dist/
 - docs/
 - apidoc/
+- node_modules/
