@@ -12,6 +12,7 @@ set -x
 
 # Pull latest code
 cd $APP_DIR
+git reset --hard HEAD
 git pull
 
 # Install dependencies
