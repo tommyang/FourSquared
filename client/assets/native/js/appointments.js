@@ -2,7 +2,6 @@ $(document).ready(function(){
     var companyData = JSON.parse(localStorage.getItem("currentCompany"));
     var myCompanyId = companyData._id;
     var curUser = JSON.parse(localStorage.getItem('currentUser'));
-
   
     $('#user-name').text(curUser.first_name + ' ' +  curUser.last_name);
 
@@ -26,6 +25,7 @@ $(document).ready(function(){
 
     $("#appt-list").html(compiledHtml);
     $('.save-btn').click(submitForm);
+    $('.dwnld-btn').click(downloadDateTime);
     
    /***
      * Makes a get request to display list of appts
@@ -61,6 +61,37 @@ $(document).ready(function(){
         appts = initializeAppts(appts);
         $("#appt-list").html(template(appts));
         document.getElementById("appt-form").reset();
+    }
+
+    /***
+      * When a receptionist downloads the date and time
+      * @param none
+      * returns none
+      */
+    function downloadDateTime(){
+        var userDate = $('#appt-date').val();
+        var year = userDate.substring(0,4);
+        var month = userDate.substring(5,7);
+        var day = userDate.substring(8,10);
+        var date = (year.concat(month)).concat(day);
+        //console.log(date);
+        var userTime = $('#appt-time').val();
+        var hours = userTime.substring(0,2);
+        var minutes = userTime.substring(3,5);
+        var time = (('T'.concat(hours)).concat(minutes).concat('00'));
+        var datetime1 = date.concat(time);
+        var datetime2;
+        if(minutes == '00'){
+          datetime2 = date.concat(('T'.concat(hours)).concat('30'));
+        } else{
+          var numHours = Number(hours);
+          numHours = numHours + 1;
+          newHour = numHours.toString();
+          datetime2 = date.concat(('T'.concat(newHour)).concat('00'));
+        }
+        var location = 'Main Office'//$('.Location').text();
+        var icsMSG = "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Our Company//NONSGML v1.0//EN\nBEGIN:VEVENT\nUID:me1@google.com\nDTSTAMP:20170614T170000Z\nATTENDEE;CN=My Self ;RSVP=TRUE:MAILTO:me@gmail.com\nORGANIZER;CN=Me:MAILTO::me@gmail.com\nDTSTART:" + datetime1 +"\nDTEND:" + datetime2 +"\nLOCATION:" + location + "\nSUMMARY:Our Meeting Office\nEND:VEVENT\nEND:VCALENDAR";
+        window.open( "data:text/calendar;charset=utf8," + escape(icsMSG));
     }
 
     /***
