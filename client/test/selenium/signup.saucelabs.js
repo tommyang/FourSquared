@@ -91,6 +91,7 @@ drivers.forEach((driver) => {
             });
         });
 
+        /*
         describe('Step 2', function() {
             before(function(done) {
                 const randomPhone = Math.floor(1000000000 + Math.random() * 9000000000);
@@ -132,6 +133,7 @@ drivers.forEach((driver) => {
                 driver.findElement(By.css('button')).should.be.fulfilled.notify(done);
             });
         });
+        */
 
         after(function() {
           driver.quit();
