@@ -121,11 +121,7 @@ $(document).ready(function(){
       userDate = $('#appt-date').val();
       userTime = $('#appt-time').val();
 
-      // newAppt.date = userDate + ' ' + userTime;
-      // var x = new Date(newAppt.date);
-      // console.log(x);
       newAppt.date = newDate(userDate + ' ' + userTime);
-      console.log(newAppt.date);
       return newAppt;
     } 
 
@@ -176,11 +172,7 @@ $(document).ready(function(){
           }
         });
 
-        // newAppt.date = userDate + ' ' + userTime;
-        // var x = new Date(newAppt.date);
-        // console.log(x);
         newAppt.date = new Date(userDate + ' ' + userTime);
-        console.log(newAppt.date);
         newAppt.company_id = myCompanyId;
 
         var errStr = validateAppt(newAppt);
