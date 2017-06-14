@@ -122,6 +122,8 @@ $(document).ready(function(){
       userTime = $('#appt-time').val();
 
       newAppt.date = userDate + ' ' + userTime;
+      var x = new Date(newAppt.date);
+      console.log(x);
       return newAppt;
     } 
 
@@ -173,6 +175,8 @@ $(document).ready(function(){
         });
 
         newAppt.date = userDate + ' ' + userTime;
+        var x = new Date(newAppt.date);
+        console.log(x);
         newAppt.company_id = myCompanyId;
 
         var errStr = validateAppt(newAppt);
