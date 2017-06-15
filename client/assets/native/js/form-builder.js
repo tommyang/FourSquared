@@ -16,7 +16,6 @@ $(document).ready(function() {
         var box_html = $('<div class="form-group"><input type="checkbox" class="form-control" name="boxes[]" id="box'+n+'"/> <label id = "added_label'+n+'" for="box'+n+'">' + label + '</label> <button type="button" class="btn btn-danger remove-box">Remove</button></div>');
         box_html.hide();
         $('.my-form:first .addField:last').before(box_html);
-        console.log(bod);
         if(bod === "true") {
         	$('#box' + n).prop('checked', true);
         }
@@ -40,7 +39,6 @@ $(document).ready(function() {
                 ajaxPost('/api/form-builder', getDefaultTheme(myCompanyId));
             }
         });
-        console.log(json);
         return json;
     }
 
@@ -65,12 +63,10 @@ $(document).ready(function() {
     }
 
     function showColor(color) {
-    	console.log(color);
     	$("#colorpicker").val(color);
     }
 
     function showData(checked, name) {
-    	console.log(checked);
     	if(checked) 
  			$(name).prop('checked', true);
     }
@@ -113,6 +109,15 @@ $(document).ready(function() {
             }            
         });
         form.color = $('#colorpicker').val();
+
+        if (form['optional_1'] == undefined) {
+            form.optional_1 = [false, ''];
+        }
+
+        if (form['optional_2'] == undefined) {
+            form.optional_2 = [false, ''];
+        }
+        
         return form;
     }
 
