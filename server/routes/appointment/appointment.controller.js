@@ -66,11 +66,11 @@ module.exports.template.create = function(req, res) {
     
     var personalization = new helper.Personalization();
     //to email
-    email = new helper.Email(appointment.email, appointment.first_name + appointment.last_name);
+    email = new helper.Email(appointment.email, appointment.first_name + " " + appointment.last_name);
     personalization.addTo(email);
     mail.addPersonalization(personalization);
     
-    var content = new helper.Content('text/plain', "Hi! " + appointment.first_name + " " + appointment.last_name + " Thank you for making an appointment with us! Your appointment is scheduled on " + appointment.date);
+    var content = new helper.Content('text/plain', "Hi! " + appointment.first_name + " " + appointment.last_name + ", thank you for making an appointment with us! Your appointment is scheduled on " + appointment.date);
     mail.addContent(content);
     
     var attachment = new helper.Attachment();
