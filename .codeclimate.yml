@@ -27,6 +27,9 @@ exclude_paths:
 - public/plugins
 - public/stylesheets
 - client/bower_components
+- client/assets
+- client/test
+- server/test
 - dist/
 - docs/
 - apidoc/
