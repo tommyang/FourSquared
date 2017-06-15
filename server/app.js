@@ -19,18 +19,7 @@ var MY_SLACK_WEBHOOK_URL ='https://hooks.slack.com/services/T4Z8L4M0E/B5M2QFH39/
 var slack = require('slack-notify')(MY_SLACK_WEBHOOK_URL);
 //var oauthserver = require('oauth2-server');
 var newrelic = require('newrelic');
-/*'use strict';
-// Load the twilio module
-var twilio = require('twilio');
 
-// Twilio Credentials 
-var accountSid = 'ACb70bc33c96bfc11985cbd1cf76a239ef'; 
-var authToken = '452f1f1d86c183097a96db390ca55590'; 
- 
-//require the Twilio module and create a REST client 
-var client = require('twilio')(accountSid, authToken); 
-var exports = module.exports;*/
-var twilio= require('./notification/text');
 /*
  * App configs
  */
@@ -79,28 +68,50 @@ db.once('open', function callback () {
     console.log("Connected to mongolab");
 });
 
-var Appointment = require('./models/Appointment');
-//Get todays date
-var date =new Date();
-//Get tomorrow's date by adding 24 hours onto today's date
-var tomorrow = new Date(date.getTime() + 24 * 60 * 60 * 1000);
 
+// Importing Appointment module
+var twilio = require('./notification/text')
+var Appointment = require('./models/Appointment');
 var schedule = require('node-schedule');
 
-//At a certain time everyday execute the function to get all the next day's appointments
-var j = schedule.scheduleJob('19 * * * *', function(){//Execute on the 57th minute of each hour
- 
-  var cursor=Appointment.find().cursor();
+// function to format the time
+function formatTime(hour, minutes) {
+  hour = hour%12;
+  var AMorPM = "AM";
+
+  if (hour > 12) {
+    AMorPM = "PM";
+  }
+  if (hour == 0) {
+    hour = 12;
+  }
+  if (minutes < 10) {
+    minutes = "0" + minutes;
+  }
+
+  return hour + ":" + minutes + " " + AMorPM;
+}
+
+//At 10AM, send a reminder through SMS to remind customers who have appts the next day
+var j = schedule.scheduleJob('* * 10 * * *', function() {
+  var date = new Date(); // today's date
+  var tomorrow = new Date(date.getTime() + 24 * 60 * 60 * 1000); // tomorrow's date
+  var AMorPM = "AM";
+
+  var cursor = Appointment.find().cursor();
   cursor.on('data',function(doc){
-	  if(doc.date.getFullYear()==tomorrow.getFullYear() && 
+    var hour = doc.date.getHours()%12;
+    var minutes = doc.date.getMinutes();
+
+	  if(doc.date.getFullYear()==tomorrow.getFullYear() &&
 			doc.date.getMonth()==tomorrow.getMonth() &&
 			doc.date.getDate()==tomorrow.getDate()){
-				console.log(doc);//Print out all appointments for tomorrow
-				//Add code here for sending reminder texts
-				twilio.sendReminderText(doc.phone_number);
+				console.log(doc); //Print out all appointments for tomorrow
+        var apptTime = formatTime(doc.date.getHours(), doc.date.getMinutes());
+				twilio.sendReminderText(doc.first_name, doc.phone_number, apptTime);
 			}
  });
-  
+
   cursor.on('close',function(){
 	  console.log('Finished');
   });
@@ -170,7 +181,7 @@ app.get('/admin-settings', function(req,res){
 });
 app.get('/index', function(req,res){
   res.sendFile(path.join(__dirname,'../client/assets/views/index.html'))
-});   
+});
 /*
  * Error Handler.
  */
