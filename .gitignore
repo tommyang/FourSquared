@@ -76,3 +76,5 @@ mobile/www/*
 !mobile/README
 *.swp
 *.iml
+
+client/bower_components/*

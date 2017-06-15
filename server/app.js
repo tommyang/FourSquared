@@ -120,7 +120,7 @@ var j = schedule.scheduleJob('* * 10 * * *', function() {
 /*
  * Express configuration.
  */
-app.set('port', config.port);
+app.set('port', process.env.PORT || config.port);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -182,6 +182,7 @@ app.get('/admin-settings', function(req,res){
 app.get('/index', function(req,res){
   res.sendFile(path.join(__dirname,'../client/assets/views/index.html'))
 });
+
 /*
  * Error Handler.
  */

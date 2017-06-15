@@ -4,10 +4,9 @@ module.exports = {
         "jquery": true,
         "node": true
     },
-    "extends": "eslint:recommended",
     "rules": {
         "indent": [
-            1,
+            0,
             4
         ],
         "linebreak-style": [
@@ -34,7 +33,7 @@ module.exports = {
             1
         ],
         "no-trailing-spaces": [
-            1 
+            1
         ]
     }
 };

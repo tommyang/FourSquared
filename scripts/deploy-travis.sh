@@ -3,7 +3,7 @@ set -e
 
 ### Configuration ###
 
-SERVER=foursquared@35.185.221.32
+SERVER=foursquared@35.185.243.13
 APP_DIR=/home/foursquared/FourSquared
 KEYFILE=/tmp/deploy_id_rsa
 REMOTE_SCRIPT_PATH=/home/foursquared/FourSquared/scripts/deploy-server.sh

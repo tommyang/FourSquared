@@ -2,6 +2,19 @@ body {
     font-family: "Helvetica Neue";
 }
 
+#overlay {
+    position: fixed;
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #1C7F79;
+    z-index: 5;
+}
+
 #clock{
     margin-top: 0;
     padding-top: 150px;
@@ -82,6 +95,19 @@ body#check-in-page{
     font-size: 28px;
 }
 
+.confirm{
+    margin-top: 100px;
+    margin-bottom: 30px;
+    /*background-color: #303641;*/
+    background-color: transparent;
+    border: none;
+    padding-bottom: 5px;
+    width: 100%;
+    color: #f1f1f1;
+    font-size: 50px;
+    text-align: center;
+}
+
 .check-in > input:focus{
    outline: none;
 }
@@ -110,4 +136,13 @@ body#check-in-page{
 
 .hide{
     display: none !important;
+}
+
+.error{
+    border-bottom: 2px solid #ff3232 !important;
+    color: #ff3232 !important;
+}
+
+.error::-webkit-input-placeholder {
+    color: #ff3232 !important;
 }

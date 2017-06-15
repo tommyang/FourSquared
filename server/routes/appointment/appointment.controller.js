@@ -37,17 +37,45 @@ module.exports.template.create = function(req, res) {
             company_id:param.company_id,
             date:param.date
         }, function(err, appointments){
-            if(err) return res.status(400).json({error: "Could Not Find"});
+            if(err) return res.status(404).json({error: "Could Not Find"});
             if(appointments.length==0) {
                 appointment.save(function (err, a) {
                     if (err)
-                        return res.status(400).json({error: "Could Not Save"});
+                        return res.status(404).json({error: "Could Not Save"});
                     return res.status(200).json(a);
                 });
             }else{
                 return res.status(400).json({error: "Already Created"});
             }
         });
+
+    // using SendGrid's v3 Node.js Library
+    // https://github.com/sendgrid/sendgrid-nodejs
+    var helper = require('sendgrid').mail;
+    var fromEmail = new helper.Email('tshih18@mail.4sqd.group');
+    var toEmail = new helper.Email('tshih18@gmail.com');
+    var subject = 'Appointment Confirmation';
+    var content = new helper.Content('text/plain', 'Thank you for making an appointment');
+    var mail = new helper.Mail(fromEmail, subject, toEmail, content);
+                                            //profess.env.SENDGRID_API_KEY
+    var sg = require('sendgrid')("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");
+    var request = sg.emptyRequest({
+        method: 'POST',
+        path: '/v3/mail/send',
+        body: mail.toJSON()
+    });
+
+    sg.API(request, function (error, response) {
+    console.log(response);
+    if (error) {
+        console.log('Error response received');
+    }
+    console.log(response.statusCode);
+    console.log(response.body);
+    console.log(response.headers);
+    });
+
+
 };
 
 module.exports.template.getAll = function(req, res) {

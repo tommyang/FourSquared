@@ -8,13 +8,13 @@
   "private": true,
   "license": "UNLICENSED",
   "engines": {
-    "node": "6.10.2"
+    "node": "7"
   },
   "dependencies": {
     "async": "0.9.0",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "1.10.1",
-    "bower": "1.3.12",
+    "bower": "1.8.0",
     "cookie-parser": "1.3.3",
     "cors": "2.5.3",
     "debug": "2.6.6",
@@ -41,7 +41,7 @@
     "iconv-lite": "0.4.13",
     "jshint-stylish": "1.0.1",
     "jwt-simple": "0.2.0",
-    "karma": "0.12.31",
+    "karma": "1.7.0",
     "lodash": "4.0.0",
     "main-bower-files": "2.5.0",
     "mongoose": "~4.4",
@@ -53,17 +53,18 @@
     "passport": "0.2.1",
     "passport-local": "1.0.0",
     "require-dir": "0.1.0",
+    "sendgrid": "^5.1.1",
     "slack-notify": "0.1.6",
-    "socket.io": "1.3.4",
+    "socket.io": "^2.0.1",
     "stripe": "4.5.0",
-    "twilio": "^3.3.0",
+    "twilio": "1.11.1",
     "winston": "0.9.0",
     "wiredep": "2.2.2"
   },
   "devDependencies": {
     "browser-sync": "^2.18.11",
-    "chai": "^3.5.0",
-    "chai-as-promised": "^6.0.0",
+    "chai": "2.1.2",
+    "chai-as-promised": "6.0.0",
     "check-pages": "^0.10.0",
     "eslint": "^3.19.0",
     "eslint-config-google": "^0.7.1",
@@ -84,11 +85,12 @@
     "supertest": "0.15.0"
   },
   "scripts": {
-    "//": "bower install --allow-root && gulp build:prod",
-    "unit": "mocha 'test/**/test-*.js'",
-    "e2e": "mocha 'test/**/e2e-*.js'",
+    "//": "nyc mocha",
+    "unit": "gulp test:server",
+    "e2e": "mocha 'client/test/selenium/*.e2e.js'",
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codeclimate-test-reporter < coverage.lcov && rm coverage.lcov",
+    "postinstall": "bower install && gulp build:prod",
     "start": "node server/app.js",
-    "test": "gulp test:server"
+    "test": "gulp test:server && mocha 'client/test/selenium/*.e2e.js'"
   }
 }

@@ -70,7 +70,7 @@ var companyId;
         var parent_fieldset = $(this).parents('fieldset');
         if(validateEmployee()) { 
             console.log(employeeData);
-            ajaxPost('/api/employees',employeeData);
+            ajaxPost('/api/employees', employeeData);
             parent_fieldset.fadeOut(400, function() {
               $(this).next().fadeIn();
             });
