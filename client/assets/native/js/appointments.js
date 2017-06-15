@@ -96,12 +96,12 @@ $(document).ready(function(){
         var datetime1 = date.concat(time);
         var datetime2;
         if(minutes == '00'){
-          datetime2 = date.concat(('T'.concat(hours)).concat('30'));
+          datetime2 = date.concat(('T'.concat(hours)).concat('3000'));
         } else{
           var numHours = Number(hours);
           numHours = numHours + 1;
           newHour = numHours.toString();
-          datetime2 = date.concat(('T'.concat(newHour)).concat('00'));
+          datetime2 = date.concat(('T'.concat(newHour)).concat('0000'));
         }
         var location = 'Main Office'//$('.Location').text();
         var icsMSG = "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Our Company//NONSGML v1.0//EN\nBEGIN:VEVENT\nUID:me1@google.com\nDTSTAMP:20170614T170000Z\nATTENDEE;CN=My Self ;RSVP=TRUE:MAILTO:me@gmail.com\nORGANIZER;CN=Me:MAILTO::me@gmail.com\nDTSTART:" + datetime1 +"\nDTEND:" + datetime2 +"\nLOCATION:" + location + "\nSUMMARY:Our Meeting Office\nEND:VEVENT\nEND:VCALENDAR";
