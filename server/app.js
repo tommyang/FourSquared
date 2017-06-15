@@ -20,7 +20,6 @@ var slack = require('slack-notify')(MY_SLACK_WEBHOOK_URL);
 //var oauthserver = require('oauth2-server');
 var newrelic = require('newrelic');
 
-
 /*
  * App configs
  */
@@ -67,6 +66,55 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function callback () {
     console.log("Connected to mongolab");
+});
+
+
+// Importing Appointment module
+var twilio = require('./notification/text')
+var Appointment = require('./models/Appointment');
+var schedule = require('node-schedule');
+
+// function to format the time
+function formatTime(hour, minutes) {
+  hour = hour%12;
+  var AMorPM = "AM";
+
+  if (hour > 12) {
+    AMorPM = "PM";
+  }
+  if (hour == 0) {
+    hour = 12;
+  }
+  if (minutes < 10) {
+    minutes = "0" + minutes;
+  }
+
+  return hour + ":" + minutes + " " + AMorPM;
+}
+
+//At 10AM, send a reminder through SMS to remind customers who have appts the next day
+var j = schedule.scheduleJob('* * 10 * * *', function() {
+  var date = new Date(); // today's date
+  var tomorrow = new Date(date.getTime() + 24 * 60 * 60 * 1000); // tomorrow's date
+  var AMorPM = "AM";
+
+  var cursor = Appointment.find().cursor();
+  cursor.on('data',function(doc){
+    var hour = doc.date.getHours()%12;
+    var minutes = doc.date.getMinutes();
+
+	  if(doc.date.getFullYear()==tomorrow.getFullYear() &&
+			doc.date.getMonth()==tomorrow.getMonth() &&
+			doc.date.getDate()==tomorrow.getDate()){
+				console.log(doc); //Print out all appointments for tomorrow
+        var apptTime = formatTime(doc.date.getHours(), doc.date.getMinutes());
+				twilio.sendReminderText(doc.first_name, doc.phone_number, apptTime);
+			}
+ });
+
+  cursor.on('close',function(){
+	  console.log('Finished');
+  });
 });
 
 /*

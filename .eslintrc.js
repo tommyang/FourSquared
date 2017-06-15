@@ -6,7 +6,7 @@ module.exports = {
     },
     "rules": {
         "indent": [
-            1,
+            0,
             4
         ],
         "linebreak-style": [
@@ -33,7 +33,7 @@ module.exports = {
             1
         ],
         "no-trailing-spaces": [
-            1 
+            1
         ]
     }
 };

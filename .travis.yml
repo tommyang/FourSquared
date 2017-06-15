@@ -38,12 +38,12 @@ deploy:
 - provider: script
   script: bash scripts/deploy-travis.sh
   on:
-    branch: dev
+    branch: master
 - provider: heroku
   app: foursquared
   api_key: 736a13ec-6461-4927-8c8f-7ecc47512459
   on:
-    branch: master
+    branch: dev
 - provider: gae
   keyfile: "/tmp/gae_keyfile.json"
   project: foobaz-164623
