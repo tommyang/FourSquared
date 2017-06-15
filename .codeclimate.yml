@@ -29,6 +29,7 @@ exclude_paths:
 - client/bower_components
 - client/assets
 - client/test
+- client/neon
 - server/test
 - dist/
 - docs/
