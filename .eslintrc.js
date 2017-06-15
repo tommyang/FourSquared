@@ -25,6 +25,9 @@ module.exports = {
             1,
             "always"
         ],
+        "clarity": [
+            0
+        ],
         "curly": [
             1,
             "all"
@@ -33,7 +36,7 @@ module.exports = {
             1
         ],
         "no-trailing-spaces": [
-            1 
+            1
         ]
     }
 };
