@@ -76,7 +76,7 @@ module.exports.template.create = function(req, res) {
     var attachment = new helper.Attachment();
     //weird thing. File has to be in subdir and use the following format
     //var file = fs.readFileSync(__dirname + '/derp/my_file.txt');
-    var file = fs.readFileSync(__dirname + '/derp/test.ics');
+    var file = fs.readFileSync(__dirname + '/files/test.ics');
     var base64File = new Buffer(file).toString('base64');
     attachment.setContent(base64File);
     attachment.setType('text/calendar');
