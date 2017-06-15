@@ -31,6 +31,7 @@ module.exports.template.create = function(req, res) {
     appointment.date = param.date;
     appointment.company_id = param.company_id;
     appointment.provider_name = param.provider_name;
+    appointment.email = param.email;
 
     Appointment.find(
         {
@@ -52,12 +53,12 @@ module.exports.template.create = function(req, res) {
     // using SendGrid's v3 Node.js Library
     // https://github.com/sendgrid/sendgrid-nodejs
     var helper = require('sendgrid').mail;
-    var fromEmail = new helper.Email('tshih18@mail.4sqd.group');
-    var toEmail = new helper.Email('tshih18@gmail.com');
+    var fromEmail = new helper.Email('tshih18@4sqd.group');
+    var toEmail = new helper.Email(appointment.email);
     var subject = 'Appointment Confirmation';
-    var content = new helper.Content('text/plain', 'Thank you for making an appointment');
+    var content = new helper.Content('text/plain', "Hi! " + appointment.first_name + " " + appointment.last_name + " Thank you for making an appointment with us! Your appointment is scheudled on " + appointment.date);
     var mail = new helper.Mail(fromEmail, subject, toEmail, content);
-                                            //profess.env.SENDGRID_API_KEY
+                                            //process.env.SENDGRID_API_KEY
     var sg = require('sendgrid')("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");
     var request = sg.emptyRequest({
         method: 'POST',
