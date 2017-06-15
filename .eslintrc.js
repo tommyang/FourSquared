@@ -6,7 +6,7 @@ module.exports = {
     },
     "rules": {
         "indent": [
-            1,
+            0,
             4
         ],
         "linebreak-style": [
@@ -24,9 +24,6 @@ module.exports = {
         "eqeqeq": [
             1,
             "always"
-        ],
-        "clarity": [
-            0
         ],
         "curly": [
             1,
