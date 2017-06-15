@@ -163,13 +163,15 @@ $(document).ready(function(){
     function displayCheckin(data) {
         var dt = new Date();
         var min = "";
-
+        var color = data.color;
+        
         if(dt.getMinutes() < 10) 
             min = "0" + dt.getMinutes();
         else 
             min = dt.getMinutes();
 
         var time = dt.getHours() + ":" + min;
+        $("#overlay").css('background-color', '#' + color);
         $("#confirm-title").html("Hello, " + data['first_name'] + " " +
                                     data['last_name']);
         $("#confirm-name").html("You have successfully checked-in.");

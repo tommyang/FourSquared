@@ -1,5 +1,19 @@
 $(document).ready(function($){
     var count = 0;
+
+	getCount();
+    
+    function getCount() {
+        $("input:checkbox").each(function() {
+            var label = $("label[for='" + this.id + "']").text();
+         	var currId = $(this).attr("id");
+         	console.log(currId);
+         	if(currId == "box1" || currId == "box0")
+         		count++;
+        });
+    	console.log(count);
+    }
+
     $('.my-form:last .add-box').click(function(){
         var label;
         label = $('#optional_label').val();
