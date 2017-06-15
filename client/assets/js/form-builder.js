@@ -1,14 +1,17 @@
 $(document).ready(function($){
     var count = 0;
 
-    function addBox(label) {
-        var box_html = $('<div class="form-group"><input type="checkbox" class="form-control" name="boxes[]" id="box'+n+'"/> <label id = "added_label'+n+'" for="box'+n+'">' + label + '</label> <button type="button" class="btn btn-danger remove-box">Remove</button></div>');
-        box_html.hide();
-        $('.my-form:first .addField:last').before(box_html);
-        box_html.fadeIn('slow');
-        $('#optional_label').val("");
-        count ++;
-
+	getCount();
+    
+    function getCount() {
+        $("input:checkbox").each(function() {
+            var label = $("label[for='" + this.id + "']").text();
+         	var currId = $(this).attr("id");
+         	console.log(currId);
+         	if(currId == "box1" || currId == "box0")
+         		count++;
+        });
+    	console.log(count);
     }
 
     $('.my-form:last .add-box').click(function(){
