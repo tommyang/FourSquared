@@ -102,7 +102,7 @@ function formatZero(time) {
 }
 
 //At 10AM, send a reminder through SMS to remind customers who have appts the next day
-var j = schedule.scheduleJob({hour: 10, minute: 00}, function() {
+var j = schedule.scheduleJob({hour: 10, minute: 0}, function() {
   var date = new Date(); // today's date
   var tomorrow = new Date(date.getTime() + 24 * 60 * 60 * 1000); // tomorrow's date
   var AMorPM = "AM";
