@@ -11,7 +11,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #1C7F79;
+/*    background-color: #1C7F79; */
     z-index: 5;
 }
 
@@ -82,7 +82,7 @@ body#check-in-page{
 
 
 
-.check-in > input.visitor-fields{
+input.visitor-fields{
     margin-top: 30px;
     margin-bottom: 30px;
     /*background-color: #303641;*/
@@ -108,11 +108,11 @@ body#check-in-page{
     text-align: center;
 }
 
-.check-in > input:focus{
+input:focus{
    outline: none;
 }
 
-.check-in > input::-webkit-input-placeholder {
+input::-webkit-input-placeholder {
     color: #f1f1f1;
 }
 
@@ -130,7 +130,7 @@ body#check-in-page{
     border: none;
     font-size: 28px;
     /*background-color: #0abcb3;*/
-    background-color: #f1f1f1;
+    background-color: #f1f1f1; 
     color: #333;
 }
 
