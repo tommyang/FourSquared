@@ -1,8 +1,4 @@
 $(document).ready(function(){
-    var companyData = JSON.parse(localStorage.getItem("currentCompany"));
-    var myCompanyId = companyData._id;
-    var curUser = JSON.parse(localStorage.getItem('currentUser'));
-
 
     var socket = io();
 
@@ -18,67 +14,10 @@ $(document).ready(function(){
         e.preventDefault();
     };
 
-    var data = getFormConfig();
-    loadColor(data);
-
     //Bind Listeners
     $('#tap-to-check').on('click', startCheckIn);
     //$('.check-in').on('submit', submitForm); 
     $('#submit-btn').on('click', submitForm);
-
-    function getFormConfig() {
-        var json;
-        $.ajax({
-            dataType: 'json',
-            type: 'GET',
-            data: $('#response').serialize(),
-            async: false,
-            url: '/api/form-builder/' + myCompanyId,
-            success: function(response) {
-                json = response;
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-                ajaxPost('/api/form-builder', getDefaultTheme(myCompanyId));
-            }
-        });
-        return json;
-    }
-
-    function loadColor(data) {
-        var color = data.color;
-        
-        document.body.style.backgroundColor = '#' + color;
-    }
-
-    function loadData(data) {
-        var fname = data.first_name;
-        var lname = data.last_name;
-        var phone = data.phone_number;
-        var op1 = data.optional_1;
-        var op2 = data.optional_2;
-        removeClassHide(fname, "#visitor-first");
-        removeClassHide(lname, "#visitor-last");
-        removeClassHide(phone, "#visitor-number");
-        removeClassHide(op1[0], "#visitor-op1");
-        removeClassHide(op2[0], "#visitor-op2");
-
-        setName("#visitor-op1", op1[1], op1[0]);
-        setName("#visitor-op2", op2[1], op2[0]);
-    }
-
-    function removeClassHide(present, name) {
-        if(present === true || present === "true") {
-            $(name).parent().removeClass("hide");
-        }
-    }
-
-    function setName(opname, holder, show) {
-        if(show) {
-            $(opname).attr("placeholder", holder);
-        }
-    }
-
-
 
     //When a user starts their check in
     function startCheckIn(){
@@ -89,7 +28,6 @@ $(document).ready(function(){
         }, 700);
         $(this).addClass('hide');
         $('#clock').addClass('hide');
-        loadData(data);
     }
 
      $('input[type="text"]').each(function(){
@@ -103,16 +41,12 @@ $(document).ready(function(){
     function verifyData(data) {
         var success = true;
         if(data['first_name'] === "") {
-            if(!$("#visitor-first").parent().hasClass("hide")) {
-                $("#visitor-first").addClass("error"); 
-                success = false;
-            }
+            $("#visitor-first").addClass("error"); 
+            success = false;
         }
         if(data['last_name'] === "") {
-            if(!$("#visitor-last").parent().hasClass("hide")) {
-                $("#visitor-last").addClass("error"); 
-                success = false;
-            }
+            $("#visitor-last").addClass("error"); 
+            success = false;
         }
         console.log(data['phone_number']);
         var re = /^((\+\d{1,2}|1)[\s.-]?)?\(?[2-9](?!11)\d{2}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
@@ -120,12 +54,9 @@ $(document).ready(function(){
         var validPhone = re.test(data['phone_number']);
         console.log(validPhone);
         if(!validPhone) {
-            if(!$("#visitor-number").parent().hasClass("hide")) {
-                $("#visitor-number").addClass("error"); 
-                success = false;
-            }
+            $("#visitor-number").addClass("error"); 
+            success = false;
         }
-        console.log("MY SUCCESS" + success);
         return success;
     }
 
@@ -135,6 +66,7 @@ $(document).ready(function(){
         var data = grabFormElements();
 
         if(!verifyData(data)) {
+            
             return;
         }
 
@@ -163,15 +95,13 @@ $(document).ready(function(){
     function displayCheckin(data) {
         var dt = new Date();
         var min = "";
-        var color = data.color;
-        
+
         if(dt.getMinutes() < 10) 
             min = "0" + dt.getMinutes();
         else 
             min = dt.getMinutes();
 
         var time = dt.getHours() + ":" + min;
-        $("#overlay").css('background-color', '#' + color);
         $("#confirm-title").html("Hello, " + data['first_name'] + " " +
                                     data['last_name']);
         $("#confirm-name").html("You have successfully checked-in.");
