@@ -115,14 +115,12 @@ var j = schedule.scheduleJob({hour: 10, minute: 00}, function() {
 	  if(doc.date.getFullYear()==tomorrow.getFullYear() &&
 			doc.date.getMonth()==tomorrow.getMonth() &&
 			doc.date.getDate()==tomorrow.getDate()){
-				console.log(doc); //Print out all appointments for tomorrow
         var apptTime = formatTime(doc.date.getHours(), doc.date.getMinutes());
 				twilio.sendReminderText(doc.first_name, doc.phone_number, apptTime);
 			}
  });
 
   cursor.on('close',function(){
-	  console.log('Finished');
   });
 });
 
@@ -206,7 +204,6 @@ app.get('/smssent', function (req, res) {
   var index = 0;
   var contextIndex = 0;
   contexts.forEach(function(value) {
-    console.log(value.from);
     if (value.from == number) {
       context = value.context;
       contextIndex = index;
@@ -214,16 +211,11 @@ app.get('/smssent', function (req, res) {
     index = index + 1;
   });
 
-  console.log('Recieved message from ' + number + ' saying \'' + message  + '\'');
-
   var conversation = new ConversationV1({
     username: '4b8a71ba-1a46-4c71-b24b-ab6f7de00131',
     password: 'X55ahuQdqD11',
     version_date: ConversationV1.VERSION_DATE_2016_09_20
   });
-
-  console.log(JSON.stringify(context));
-  console.log(contexts.length);
 
   conversation.message({
     input: { text: message },
@@ -231,9 +223,7 @@ app.get('/smssent', function (req, res) {
     context: context
    }, function(err, response) {
        if (err) {
-         console.error(err);
        } else {
-         console.log(response.output.text[0]);
          if (context == null) {
            contexts.push({'from': number, 'context': response.context});
          } else {
@@ -241,35 +231,23 @@ app.get('/smssent', function (req, res) {
          }
 
          var intent = response.intents[response.intents.length-1].intent;
-         console.log("The intent: " + intent);
 
          if (intent == "cancel_appt") {
            var str = response.output.text[0];
            var arr = str.split(" ");
-           console.log(arr);
            var name = arr[1];
            var date = arr[6];
            var time = arr[8];
-           console.log(name + ", " + date + ", " + time);
 
            var cursor = Appointment.find().cursor();
            cursor.on('data',function(doc){
 
              var formattedDocDate = doc.date.getFullYear() + "-" + formatZero(doc.date.getMonth()+1) + "-" + formatZero(doc.date.getDate()+1);
              if (doc.first_name == name && formattedDocDate == date) {
-              console.log("FOUND IT");
 
               var id = doc._id;
               var xmlHttp = new XMLHttpRequest();
-
-              xmlHttp.onreadystatechange = function() {
-                if (xmlHttp.readyState === 4) {
-                  console.log(xmlHttp.response);
-                }
-                console.log("READY STATE: " + xmlHttp.readyState);
-              }
               var url = "http://4sqd.group/api/appointments/" + id;
-              console.log(url);
               xmlHttp.open('DELETE', url, false);
               xmlHttp.send();
              }
@@ -279,18 +257,15 @@ app.get('/smssent', function (req, res) {
          } else if (intent == "make_appt") {
            var str = response.output.text[0];
            var arr = str.split(" ");
-           console.log(arr);
            var name = arr[1];
            var date = arr[6];
            var time = arr[8];
-           console.log(name + ", " + date + ", " + time);
          }
 
 
          if (intent == "done") {
            //contexts.splice(contexts.indexOf({'from': number, 'context': response.context}),1);
            contexts.splice(contextIndex,1);
-           console.log("ajtewajroiweeowprjeiworjaeow");
            // Call REST API here (order pizza, etc.)
          }
 
