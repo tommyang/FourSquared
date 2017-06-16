@@ -9,12 +9,10 @@
 - Clone this repo.
   - If you previously cloned this repo when it was under Henry's account, run `git remote set-url origin git@github.com:tommyang/FourSquared.git` if you use SSH or `git remote set-url origin https://github.com/tommyang/FourSquared.git` if you use HTTPS.
 - Install local dependencies `$ yarn`.
-- Install these if you want to run end-to-end tests locally: 
+- Install these if you want to run end-to-end tests locally:
   - `$ yarn global add gulp-cli phantomjs`.
   - Install [Selenium Standalone Server](http://www.seleniumhq.org/download/).
-- Write tests in `/test`, preferrably with the following naming conventions:
-  - `test-xxx.js` for unit tests. See `test-foo.js` for an example.
-  - `e2e-xxx.js` for end-to-end tests. See `e2e-password.js` for an example.
+- Write tests in `/test`.
 - Write code. See `foo.js` for an example.
 - To start the server locally, run `$ yarn start` and got to `http://localhost:3000`.
 - To run the tests:

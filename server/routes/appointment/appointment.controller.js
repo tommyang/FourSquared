@@ -31,6 +31,7 @@ module.exports.template.create = function(req, res) {
     appointment.date = param.date;
     appointment.company_id = param.company_id;
     appointment.provider_name = param.provider_name;
+    appointment.email = param.email;
 
     Appointment.find(
         {
@@ -51,30 +52,97 @@ module.exports.template.create = function(req, res) {
 
     // using SendGrid's v3 Node.js Library
     // https://github.com/sendgrid/sendgrid-nodejs
+
     var helper = require('sendgrid').mail;
-    var fromEmail = new helper.Email('tshih18@mail.4sqd.group');
-    var toEmail = new helper.Email('tshih18@gmail.com');
-    var subject = 'Appointment Confirmation';
-    var content = new helper.Content('text/plain', 'Thank you for making an appointment');
-    var mail = new helper.Mail(fromEmail, subject, toEmail, content);
-                                            //profess.env.SENDGRID_API_KEY
     var sg = require('sendgrid')("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");
+    var fs = require('fs');
+    
+    var mail = new helper.Mail();
+    //from email
+    var email = new helper.Email('tshih18@4sqd.group', 'Four Squared');
+    mail.setFrom(email);
+    
+    mail.setSubject('Appointment Confirmation');
+    
+    var personalization = new helper.Personalization();
+    //to email
+    email = new helper.Email(appointment.email, appointment.first_name + " " + appointment.last_name);
+    personalization.addTo(email);
+    mail.addPersonalization(personalization);
+    
+    var content = new helper.Content('text/plain', "Hi! " + appointment.first_name + " " + appointment.last_name + ", thank you for making an appointment with us! Your appointment is scheduled on " + appointment.date);
+    mail.addContent(content);
+    
+    var attachment = new helper.Attachment();
+    //weird thing. File has to be in subdir and use the following format
+    //var file = fs.readFileSync(__dirname + '/derp/my_file.txt');
+    var file = fs.readFileSync(__dirname + '/files/test.ics');
+    var base64File = new Buffer(file).toString('base64');
+    attachment.setContent(base64File);
+    attachment.setType('text/calendar');
+    attachment.setFilename('test.ics');
+    attachment.setDisposition('attachment');
+    mail.addAttachment(attachment);
+    
     var request = sg.emptyRequest({
-        method: 'POST',
-        path: '/v3/mail/send',
-        body: mail.toJSON()
+      method: 'POST',
+      path: '/v3/mail/send',
+      body: mail.toJSON(),
+    });
+    
+    sg.API(request, function(err, response) {
+      console.log(response.statusCode);
+      console.log(response.body);
+      console.log(response.headers);
     });
 
-    sg.API(request, function (error, response) {
-    console.log(response);
-    if (error) {
-        console.log('Error response received');
-    }
-    console.log(response.statusCode);
-    console.log(response.body);
-    console.log(response.headers);
+    ///////////////////////////////////////////////////////////////////
+
+    /*
+
+    var helper = require('sendgrid').mail;
+    //var sg = require('sendgrid')(process.env.SENDGRID_API_KEY);
+    var sg = require('sendgrid')("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");
+    var fs = require('fs');
+    
+    var mail = new helper.Mail();
+    var email = new helper.Email('jasonageneste@gmail.com', 'Jason Geneste');
+    mail.setFrom(email);
+    
+    mail.setSubject('Appointment Confirmation');
+    
+    var personalization = new helper.Personalization();
+    email = new helper.Email('jasonageneste@gmail.com', 'Jason Geneste');
+    personalization.addTo(email);
+    mail.addPersonalization(personalization);
+    
+    var content = new helper.Content('text/html', '<html><body>Thank you for making an appointment</body></html>')
+    mail.addContent(content);
+    
+    var attachment = new helper.Attachment();
+    //var file = fs.readFileSync('my_file.txt');
+    //var base64File = new Buffer(file).toString('base64');
+    //var base64File = new Buffer('BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Our Company//NONSGML v1.0//EN\nBEGIN:VEVENT\nUID:me1@google.com\nDTSTAMP:20170614T170000Z\nATTENDEE;CN=My Self ;RSVP=TRUE:MAILTO:me@gmail.com\nORGANIZER;CN=Me:MAILTO::me@gmail.com\nDTSTART:" + datetime1 +"\nDTEND:" + datetime2 +"\nLOCATION:" + location + "\nSUMMARY:Our Meeting Office\nEND:VEVENT\nEND:VCALENDAR').toString('base64');
+    //attachment.setContent(base64File);
+    attachment.setContent("BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Our Company//NONSGML v1.0//EN\nBEGIN:VEVENT\nUID:me1@google.com\nDTSTAMP:20170614T170000Z\nATTENDEE;CN=My Self ;RSVP=TRUE:MAILTO:me@gmail.com\nORGANIZER;CN=Me:MAILTO::me@gmail.com\nDTSTART:" + "20170614T120000" +"\nDTEND:" + "20170614T130000" +"\nLOCATION:" + "wherever" + "\nSUMMARY:Our Meeting Office\nEND:VEVENT\nEND:VCALENDAR");
+    attachment.setType('application/text');
+    attachment.setFilename('my_file.txt');
+    attachment.setDisposition('attachment');
+    mail.addAttachment(attachment);
+    
+    var request = sg.emptyRequest({
+      method: 'POST',
+      path: '/v3/mail/send',
+      body: mail.toJSON(),
+    });
+    
+    sg.API(request, function(err, response) {
+      console.log(response.statusCode);
+      console.log(response.body);
+      console.log(response.headers);
     });
 
+    */
 
 };
 
